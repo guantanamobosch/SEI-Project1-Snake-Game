@@ -11,11 +11,11 @@ const squares = document.querySelectorAll('.square');
 // }
 // This one also didn't work for logging key presses
 
-function makeSquareGreen() {
+function startingPoint() {
     let snake = Math.ceil(Math.random() * squares.length);
     squares[snake].classList.add('green');
 }
-makeSquareGreen()
+startingPoint()
 
 // ***Event Listeners***
 // document.defaultView.addEventListener('onkeydown', function (event) {
