@@ -25,7 +25,12 @@ startingPoint()
 
 
 document.addEventListener("keydown", function (event) {
-    console.log(event.key);
+    // console.log(event.key);
+    if (event.key === 'ArrowRight') {
+        squares[snake].classList.remove('green');
+        snake += 1;
+        squares[snake].classList.add('green');
+    }
 })
 
 // this method of 'keydown' did work, and I got it directly from https://css-tricks.com/snippets/javascript/javascript-keycodes/ --- yeehaw
