@@ -47,18 +47,18 @@ for (let i = 0; i < 381; i += 20) {
 //     console.log(topBoundaryFailConditions[i]);
 // }
 
-function checkForFailCondition() {
-    // for loop to test keyboard input against fail conditions
-    for (let i = 0; i < 20; i++) {
-        if (squares[snake] === rightBoundaryFailConditions[i]) {
-            return "crashRight";
-        }
-        //     || (squares[snake] === bottomBoundaryFailConditions[i] && event.key === 'ArrowDown') || (squares[snake] === leftBoundaryFailConditions[i] && event.key === 'ArrowLeft') || (squares[snake] === topBoundaryFailConditions[i] && event.key === 'ArrowUp')) {
-        //     console.log("You lose!");
-        //     startingPoint(snake);
-        // }
-    }
-}
+// function checkForFailCondition() {
+//     // for loop to test keyboard input against fail conditions
+//     for (let i = 0; i < 20; i++) {
+//         if (squares[snake] === rightBoundaryFailConditions[i]) {
+//             return "crashRight";
+//         }
+//         //     || (squares[snake] === bottomBoundaryFailConditions[i] && event.key === 'ArrowDown') || (squares[snake] === leftBoundaryFailConditions[i] && event.key === 'ArrowLeft') || (squares[snake] === topBoundaryFailConditions[i] && event.key === 'ArrowUp')) {
+//         //     console.log("You lose!");
+//         //     startingPoint(snake);
+//         // }
+//     }
+// }
 
 // ***Event Listeners***
 // document.defaultView.addEventListener('onkeydown', function (event) {
@@ -69,8 +69,13 @@ function checkForFailCondition() {
 
 document.addEventListener("keydown", function (event) {
     // console.log(event.key);
-    console.log(checkForFailCondition());
+    // console.log(checkForFailCondition());
     // **logic to make snake move around**
+    // for (let i = 0; i < 20; i++) {
+    // if ((snake === rightBoundaryFailConditions[i] && event.key === 'ArrowRight') || (snake === bottomBoundaryFailConditions[i] && event.key === 'ArrowDown') || (snake === leftBoundaryFailConditions[i] && event.key === 'ArrowLeft') || (snake === topBoundaryFailConditions[i] && event.key === 'ArrowUp')) {
+    //     console.log("You lose!");
+    //     startingPoint(snake);
+    // }
     if (event.key === 'ArrowRight') {
         squares[snake].classList.remove('green');
         snake += 1;
@@ -87,7 +92,8 @@ document.addEventListener("keydown", function (event) {
         squares[snake].classList.remove('green');
         snake += 20;
         squares[snake].classList.add('green');
-    }
+    } else console.log("youlose");
+    // }
 })
 
 // this method of 'keydown' did work, and I got it directly from https://css-tricks.com/snippets/javascript/javascript-keycodes/ --- yeehaw
