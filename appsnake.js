@@ -4,6 +4,8 @@
 const squares = document.querySelectorAll('.square');
 // console.log(squares[0].innerHTML);
 
+let snake = Math.ceil(Math.random() * squares.length);
+
 // ***Functions***
 // function myFunction(event) {
 //     let key = event.key;
@@ -11,11 +13,10 @@ const squares = document.querySelectorAll('.square');
 // }
 // This one also didn't work for logging key presses
 
-function startingPoint() {
-    let snake = Math.ceil(Math.random() * squares.length);
+function startingPoint(snake) {
     squares[snake].classList.add('green');
 }
-startingPoint()
+startingPoint(snake);
 
 // ***Event Listeners***
 // document.defaultView.addEventListener('onkeydown', function (event) {
