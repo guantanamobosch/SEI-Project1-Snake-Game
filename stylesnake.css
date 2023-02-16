@@ -11,20 +11,20 @@ nav {
 
 .center {
     background-color: aliceblue;
-    width: 65%;
+    width: 45%;
     justify-content: center;
 }
 
 .row {
     display: flex;
-    height: 5vh;
+    height: 3.9vh;
     border: .5px solid black;
     justify-content: center;
 }
 
 .square {
     border: .5px solid black;
-    width: 30%;
+    width: 3.9vh;
     background-color: white;
     justify-content: center;
 }
