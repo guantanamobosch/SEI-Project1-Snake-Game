@@ -52,6 +52,12 @@ for (let i = 0; i < 381; i += 20) {
 document.addEventListener("keydown", function (event) {
     // console.log(event.key);
     // **logic to make snake move around**
+    // for loop to test keyboard input against fail conditions
+    // for (let i = 0; i < 21; i++) {
+    //     if ((squares[snake] === rightBoundaryFailConditions[i] && event.key === 'ArrowRight') || (squares[snake] === bottomBoundaryFailConditions[i] && event.key === 'ArrowDown') || (squares[snake] === leftBoundaryFailConditions[i] && event.key === 'ArrowLeft') || (squares[snake] === topBoundaryFailConditions[i] && event.key === 'ArrowUp')) {
+    //         console.log("You lose!");
+    //         startingPoint(snake);
+    //     } else
     if (event.key === 'ArrowRight') {
         squares[snake].classList.remove('green');
         snake += 1;
@@ -69,6 +75,7 @@ document.addEventListener("keydown", function (event) {
         snake += 20;
         squares[snake].classList.add('green');
     }
+    // }
 })
 
 // this method of 'keydown' did work, and I got it directly from https://css-tricks.com/snippets/javascript/javascript-keycodes/ --- yeehaw
