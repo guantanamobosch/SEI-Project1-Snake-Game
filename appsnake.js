@@ -42,6 +42,11 @@ for (let i = 0; i < 381; i += 20) {
 // console.log(bottomBoundaryFailConditions);
 // console.log(leftBoundaryFailConditions);
 
+// testing the fail condition for loop - I think I need to change the terminating condition to i < 20
+// for (let i = 0; i < 20; i++) {
+//     console.log(topBoundaryFailConditions[i]);
+// }
+
 // ***Event Listeners***
 // document.defaultView.addEventListener('onkeydown', function (event) {
 //     console.log("Hello world!");
@@ -53,29 +58,28 @@ document.addEventListener("keydown", function (event) {
     // console.log(event.key);
     // **logic to make snake move around**
     // for loop to test keyboard input against fail conditions
-    // for (let i = 0; i < 21; i++) {
-    //     if ((squares[snake] === rightBoundaryFailConditions[i] && event.key === 'ArrowRight') || (squares[snake] === bottomBoundaryFailConditions[i] && event.key === 'ArrowDown') || (squares[snake] === leftBoundaryFailConditions[i] && event.key === 'ArrowLeft') || (squares[snake] === topBoundaryFailConditions[i] && event.key === 'ArrowUp')) {
-    //         console.log("You lose!");
-    //         startingPoint(snake);
-    //     } else
-    if (event.key === 'ArrowRight') {
-        squares[snake].classList.remove('green');
-        snake += 1;
-        squares[snake].classList.add('green');
-    } else if (event.key === 'ArrowLeft') {
-        squares[snake].classList.remove('green');
-        snake -= 1;
-        squares[snake].classList.add('green');
-    } else if (event.key === 'ArrowUp') {
-        squares[snake].classList.remove('green');
-        snake -= 20;
-        squares[snake].classList.add('green');
-    } else if (event.key === 'ArrowDown') {
-        squares[snake].classList.remove('green');
-        snake += 20;
-        squares[snake].classList.add('green');
+    for (let i = 0; i < 20; i++) {
+        if ((squares[snake] === rightBoundaryFailConditions[i] && event.key === 'ArrowRight') || (squares[snake] === bottomBoundaryFailConditions[i] && event.key === 'ArrowDown') || (squares[snake] === leftBoundaryFailConditions[i] && event.key === 'ArrowLeft') || (squares[snake] === topBoundaryFailConditions[i] && event.key === 'ArrowUp')) {
+            console.log("You lose!");
+            startingPoint(snake);
+        } else if (event.key === 'ArrowRight') {
+            squares[snake].classList.remove('green');
+            snake += 1;
+            squares[snake].classList.add('green');
+        } else if (event.key === 'ArrowLeft') {
+            squares[snake].classList.remove('green');
+            snake -= 1;
+            squares[snake].classList.add('green');
+        } else if (event.key === 'ArrowUp') {
+            squares[snake].classList.remove('green');
+            snake -= 20;
+            squares[snake].classList.add('green');
+        } else if (event.key === 'ArrowDown') {
+            squares[snake].classList.remove('green');
+            snake += 20;
+            squares[snake].classList.add('green');
+        }
     }
-    // }
 })
 
 // this method of 'keydown' did work, and I got it directly from https://css-tricks.com/snippets/javascript/javascript-keycodes/ --- yeehaw
