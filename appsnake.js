@@ -31,6 +31,18 @@ document.addEventListener("keydown", function (event) {
         squares[snake].classList.remove('green');
         snake += 1;
         squares[snake].classList.add('green');
+    } else if (event.key === 'ArrowLeft') {
+        squares[snake].classList.remove('green');
+        snake -= 1;
+        squares[snake].classList.add('green');
+    } else if (event.key === 'ArrowUp') {
+        squares[snake].classList.remove('green');
+        snake -= 20;
+        squares[snake].classList.add('green');
+    } else if (event.key === 'ArrowDown') {
+        squares[snake].classList.remove('green');
+        snake += 20;
+        squares[snake].classList.add('green');
     }
 })
 
