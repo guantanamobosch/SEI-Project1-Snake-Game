@@ -1,7 +1,5 @@
 // ***Variables***
 
-let snake = 0;
-
 // let's store the squares in some variables
 const squares = document.querySelectorAll('.square');
 // console.log(squares[0].innerHTML);
@@ -14,7 +12,8 @@ const squares = document.querySelectorAll('.square');
 // This one also didn't work for logging key presses
 
 function makeSquareGreen() {
-    squares[0].classList.add('green');
+    let snake = Math.ceil(Math.random() * squares.length);
+    squares[snake].classList.add('green');
 }
 makeSquareGreen()
 
