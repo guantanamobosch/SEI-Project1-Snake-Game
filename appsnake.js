@@ -1,9 +1,10 @@
 // ***Variables***
 
+let snake = 0;
 
 // let's store the squares in some variables
 const squares = document.querySelectorAll('.square');
-// console.log(squares);
+// console.log(squares[0].innerHTML);
 
 // ***Functions***
 // function myFunction(event) {
