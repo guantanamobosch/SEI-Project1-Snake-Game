@@ -11,6 +11,12 @@ const squares = document.querySelectorAll('.square');
 //     let key = event.key;
 //     console.log(key);
 // }
+// This one also didn't work for logging key presses
+
+function makeSquareGreen() {
+    squares[0].classList.add('green');
+}
+makeSquareGreen()
 
 // ***Event Listeners***
 // document.defaultView.addEventListener('onkeydown', function (event) {
