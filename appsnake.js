@@ -6,6 +6,12 @@ const squares = document.querySelectorAll('.square');
 
 let snake = Math.ceil(Math.random() * squares.length);
 
+// fail condition arrays
+const topBoundaryFailConditions = [];
+const rightBoundaryFailConditions = [];
+const bottomBoundaryFailConditions = [];
+const leftBoundaryFailConditions = [];
+
 // ***Functions***
 // function myFunction(event) {
 //     let key = event.key;
@@ -18,6 +24,24 @@ function startingPoint(snake) {
 }
 startingPoint(snake);
 
+// for loops to populate fail condition arrays
+for (let i = 0; i < 20; i++) {
+    topBoundaryFailConditions.push(i);
+}
+for (let i = 19; i < 400; i += 20) {
+    rightBoundaryFailConditions.push(i);
+}
+for (let i = 380; i < 400; i++) {
+    bottomBoundaryFailConditions.push(i);
+}
+for (let i = 0; i < 381; i += 20) {
+    leftBoundaryFailConditions.push(i);
+}
+// console.log(topBoundaryFailConditions);
+// console.log(rightBoundaryFailConditions);
+// console.log(bottomBoundaryFailConditions);
+// console.log(leftBoundaryFailConditions);
+
 // ***Event Listeners***
 // document.defaultView.addEventListener('onkeydown', function (event) {
 //     console.log("Hello world!");
@@ -27,6 +51,7 @@ startingPoint(snake);
 
 document.addEventListener("keydown", function (event) {
     // console.log(event.key);
+    // **logic to make snake move around**
     if (event.key === 'ArrowRight') {
         squares[snake].classList.remove('green');
         snake += 1;
