@@ -60,6 +60,30 @@ for (let i = 0; i < 381; i += 20) {
 //     }
 // }
 
+function moveRight() {
+    squares[snake].classList.remove('green');
+    snake += 1;
+    squares[snake].classList.add('green');
+}
+
+function moveLeft() {
+    squares[snake].classList.remove('green');
+    snake -= 1;
+    squares[snake].classList.add('green');
+}
+
+function moveUp() {
+    squares[snake].classList.remove('green');
+    snake -= 20;
+    squares[snake].classList.add('green');
+}
+
+function moveDown() {
+    squares[snake].classList.remove('green');
+    snake += 20;
+    squares[snake].classList.add('green');
+}
+
 // ***Event Listeners***
 // document.defaultView.addEventListener('onkeydown', function (event) {
 //     console.log("Hello world!");
@@ -68,32 +92,15 @@ for (let i = 0; i < 381; i += 20) {
 
 
 document.addEventListener("keydown", function (event) {
-    // console.log(event.key);
-    // console.log(checkForFailCondition());
-    // **logic to make snake move around**
-    // for (let i = 0; i < 20; i++) {
-    // if ((snake === rightBoundaryFailConditions[i] && event.key === 'ArrowRight') || (snake === bottomBoundaryFailConditions[i] && event.key === 'ArrowDown') || (snake === leftBoundaryFailConditions[i] && event.key === 'ArrowLeft') || (snake === topBoundaryFailConditions[i] && event.key === 'ArrowUp')) {
-    //     console.log("You lose!");
-    //     startingPoint(snake);
-    // }
     if (event.key === 'ArrowRight') {
-        squares[snake].classList.remove('green');
-        snake += 1;
-        squares[snake].classList.add('green');
+        moveRight();
     } else if (event.key === 'ArrowLeft') {
-        squares[snake].classList.remove('green');
-        snake -= 1;
-        squares[snake].classList.add('green');
+        moveLeft();
     } else if (event.key === 'ArrowUp') {
-        squares[snake].classList.remove('green');
-        snake -= 20;
-        squares[snake].classList.add('green');
+        moveUp();
     } else if (event.key === 'ArrowDown') {
-        squares[snake].classList.remove('green');
-        snake += 20;
-        squares[snake].classList.add('green');
-    } else console.log("youlose");
-    // }
+        moveDown();
+    }
 })
 
 // this method of 'keydown' did work, and I got it directly from https://css-tricks.com/snippets/javascript/javascript-keycodes/ --- yeehaw
