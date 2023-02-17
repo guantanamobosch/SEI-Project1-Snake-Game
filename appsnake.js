@@ -6,11 +6,31 @@ const squares = document.querySelectorAll('.square');
 
 let snake = Math.ceil(Math.random() * squares.length);
 
+let failureNumber;
+
 // fail condition arrays
 const topBoundaryFailConditions = [];
 const rightBoundaryFailConditions = [];
 const bottomBoundaryFailConditions = [];
 const leftBoundaryFailConditions = [];
+
+// for loops to populate fail condition arrays
+for (let i = 0; i < 20; i++) {
+    topBoundaryFailConditions.push(i);
+}
+for (let i = 19; i < 420; i += 20) {
+    rightBoundaryFailConditions.push(i);
+}
+for (let i = 400; i < 420; i++) {
+    bottomBoundaryFailConditions.push(i);
+}
+for (let i = 0; i < 401; i += 20) {
+    leftBoundaryFailConditions.push(i);
+}
+// console.log(topBoundaryFailConditions);
+// console.log(rightBoundaryFailConditions);
+// console.log(bottomBoundaryFailConditions);
+// console.log(leftBoundaryFailConditions);
 
 // ***Functions***
 // function myFunction(event) {
@@ -24,23 +44,7 @@ function startingPoint(snake) {
 }
 startingPoint(snake);
 
-// for loops to populate fail condition arrays
-for (let i = 0; i < 20; i++) {
-    topBoundaryFailConditions.push(i);
-}
-for (let i = 19; i < 400; i += 20) {
-    rightBoundaryFailConditions.push(i);
-}
-for (let i = 380; i < 400; i++) {
-    bottomBoundaryFailConditions.push(i);
-}
-for (let i = 0; i < 381; i += 20) {
-    leftBoundaryFailConditions.push(i);
-}
-// console.log(topBoundaryFailConditions);
-// console.log(rightBoundaryFailConditions);
-// console.log(bottomBoundaryFailConditions);
-// console.log(leftBoundaryFailConditions);
+
 
 // testing the fail condition for loop - I think I need to change the terminating condition to i < 20
 // for (let i = 0; i < 20; i++) {
@@ -60,25 +64,47 @@ for (let i = 0; i < 381; i += 20) {
 //     }
 // }
 
-function moveRight() {
+function checkBoundary() {
+    for (let i = 0; i < rightBoundaryFailConditions.length; i++) {
+        if (snake === topBoundaryFailConditions[0]) {
+            failureNumber = 5;
+        } else if (snake === topBoundaryFailConditions[19]) {
+            failureNumber = 6;
+        } else if (snake === bottomBoundaryFailConditions[19]) {
+            failureNumber = 7;
+        } else if (snake === bottomBoundaryFailConditions[0]) {
+            failureNumber = 8;
+        } else if (snake === topBoundaryFailConditions[i]) {
+            failureNumber = 1;
+        } else if (snake === rightBoundaryFailConditions[i]) {
+            failureNumber = 2;
+        } else if (snake === bottomBoundaryFailConditions[i]) {
+            failureNumber = 3;
+        } else if (snake === leftBoundaryFailConditions[i]) {
+            failureNumber = 4;
+        }
+    }
+}
+
+function MoveRight() {
     squares[snake].classList.remove('green');
     snake += 1;
     squares[snake].classList.add('green');
 }
 
-function moveLeft() {
+function MoveLeft() {
     squares[snake].classList.remove('green');
     snake -= 1;
     squares[snake].classList.add('green');
 }
 
-function moveUp() {
+function MoveUp() {
     squares[snake].classList.remove('green');
     snake -= 20;
     squares[snake].classList.add('green');
 }
 
-function moveDown() {
+function MoveDown() {
     squares[snake].classList.remove('green');
     snake += 20;
     squares[snake].classList.add('green');
@@ -93,13 +119,13 @@ function moveDown() {
 
 document.addEventListener("keydown", function (event) {
     if (event.key === 'ArrowRight') {
-        moveRight();
+        MoveRight();
     } else if (event.key === 'ArrowLeft') {
-        moveLeft();
+        MoveLeft();
     } else if (event.key === 'ArrowUp') {
-        moveUp();
+        MoveUp();
     } else if (event.key === 'ArrowDown') {
-        moveDown();
+        MoveDown();
     }
 })
 
