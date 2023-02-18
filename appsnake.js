@@ -6,7 +6,7 @@ const squares = document.querySelectorAll('.square');
 
 let snake = Math.ceil(Math.random() * squares.length);
 
-let failureNumber;
+let failureNumber = 0;
 
 // fail condition arrays
 const topBoundaryFailConditions = [];
@@ -90,24 +90,28 @@ function MoveRight() {
     squares[snake].classList.remove('green');
     snake += 1;
     squares[snake].classList.add('green');
+    failureNumber = 0;
 }
 
 function MoveLeft() {
     squares[snake].classList.remove('green');
     snake -= 1;
     squares[snake].classList.add('green');
+    failureNumber = 0;
 }
 
 function MoveUp() {
     squares[snake].classList.remove('green');
     snake -= 20;
     squares[snake].classList.add('green');
+    failureNumber = 0;
 }
 
 function MoveDown() {
     squares[snake].classList.remove('green');
     snake += 20;
     squares[snake].classList.add('green');
+    failureNumber = 0;
 }
 
 // ***Event Listeners***
@@ -118,14 +122,40 @@ function MoveDown() {
 
 
 document.addEventListener("keydown", function (event) {
-    if (event.key === 'ArrowRight') {
-        MoveRight();
-    } else if (event.key === 'ArrowLeft') {
-        MoveLeft();
+    console.log(failureNumber);
+    checkBoundary();
+    if (failureNumber === 5 && (event.key === 'ArrowUp' || event.key === 'ArrowLeft')) {
+        console.log("You Lose");
+        startingPoint();
+    } else if (failureNumber === 6 && (event.key === 'ArrowUp' || event.key === 'ArrowRight')) {
+        console.log("You Lose");
+        startingPoint();
+    } else if (failureNumber === 7 && (event.key === 'ArrowRight' || event.key === 'ArrowDown')) {
+        console.log("You Lose");
+        startingPoint();
+    } else if (failureNumber === 8 && (event.key === 'ArrowDown' || event.key === 'ArrowLeft')) {
+        console.log("You Lose");
+        startingPoint();
+    } else if (failureNumber === 1 && event.key === 'ArrowUp') {
+        console.log("You Lose");
+        startingPoint();
+    } else if (failureNumber === 2 && event.key === 'ArrowRight') {
+        console.log("You Lose");
+        startingPoint();
+    } else if (failureNumber === 3 && event.key === 'ArrowDown') {
+        console.log("You Lose");
+        startingPoint();
+    } else if (failureNumber === 4 && event.key === 'ArrowLeft') {
+        console.log("You Lose");
+        startingPoint();
     } else if (event.key === 'ArrowUp') {
         MoveUp();
+    } else if (event.key === 'ArrowRight') {
+        MoveRight();
     } else if (event.key === 'ArrowDown') {
         MoveDown();
+    } else if (event.key === 'ArrowLeft') {
+        MoveLeft();
     }
 })
 
