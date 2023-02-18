@@ -122,7 +122,6 @@ function MoveDown() {
     } else {
         squares[snake].classList.remove('green');
         tailMove();
-        // tailMove();
         snake += 20;
         squares[snake].classList.add('green');
         failureNumber = 0;
@@ -143,13 +142,79 @@ function MoveLeft() {
     }
 }
 
+// function tailMoveUp() {
+//     squares[tail[0]].classList.remove('green');
+//     for (let i = 1; i < tail.length; i++) {
+//         squares[tail[i]].classList.remove('green');
+//         tail[i] -= 20;
+//         // console.log(tail[i]);
+//         squares[tail[i]].classList.add('green');
+
+//     }
+//     tail[0] = snake;
+//     // console.log(tail[0]);
+//     squares[tail[0]].classList.add('green');
+// }
+// function tailMoveRight() {
+//     squares[tail[0]].classList.remove('green');
+//     for (let i = 1; i < tail.length; i++) {
+//         squares[tail[i]].classList.remove('green');
+//         tail[i] += 1;
+//         // console.log(tail[i]);
+//         squares[tail[i]].classList.add('green');
+
+//     }
+//     tail[0] = snake;
+//     // console.log(tail[0]);
+//     squares[tail[0]].classList.add('green');
+// }
+// function tailMoveDown() {
+//     squares[tail[0]].classList.remove('green');
+//     for (let i = 1; i < tail.length; i++) {
+//         squares[tail[i]].classList.remove('green');
+//         tail[i] += 20;
+//         // console.log(tail[i]);
+//         squares[tail[i]].classList.add('green');
+
+//     }
+//     tail[0] = snake;
+//     // console.log(tail[0]);
+//     squares[tail[0]].classList.add('green');
+// }
+// function tailMoveLeft() {
+//     squares[tail[0]].classList.remove('green');
+//     for (let i = 1; i < tail.length; i++) {
+//         squares[tail[i]].classList.remove('green');
+//         tail[i] -= 1;
+//         // console.log(tail[i]);
+//         squares[tail[i]].classList.add('green');
+
+//     }
+//     tail[0] = snake;
+//     // console.log(tail[0]);
+//     squares[tail[0]].classList.add('green');
+// }
+
+// saving original tailMove function just in case
 function tailMove() {
     squares[tail[0]].classList.remove('green');
-    for (let i = 1; i < tail.length; i++) {
-        squares[tail[i]].classList.remove('green');
-        tail[i] = tail[i - 1];
-        squares[tail[i]].classList.add('green');
+    // console.log(tail.length - 1);
+    let tailLength = tail.length - 1;
+    for (let i = tailLength; i > 0; i--) {
 
+        // console.log(i);
+        if (i === tailLength) {
+            squares[tail[i]].classList.remove('green');
+            tail[i] = tail[i - 1];
+            squares[tail[i]].classList.add('green');
+            continue;
+        } else {
+            tail[i] = tail[i - 1];
+            squares[tail[i]].classList.add('green');
+            continue;
+        }
+
+        // console.log(tail[i]);
     }
     tail[0] = snake;
     // console.log(tail[0]);
