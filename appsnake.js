@@ -6,6 +6,7 @@ const squares = document.querySelectorAll('.square');
 
 let snake = 205;
 let tail = [204, 203];
+let apple = 214;
 
 let failureNumber = 0;
 let moveInterval;
@@ -40,6 +41,11 @@ for (let i = 0; i < 401; i += 20) {
 //     console.log(key);
 // }
 // This one also didn't work for logging key presses
+
+function appleStartingPoint(apple) {
+    squares[apple].classList.add('red');
+}
+appleStartingPoint(apple);
 
 function snakeStartingPoint(snake) {
     squares[snake].classList.add('green');
@@ -82,6 +88,15 @@ function checkBoundary() {
             failureNumber = 4;
         }
     }
+}
+
+function checkForApple() {
+    let appleAbove;
+    let appleToTheRight;
+    let appleBelow;
+    let appleToTheLeft;
+
+
 }
 
 function MoveUp() {
