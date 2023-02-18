@@ -7,6 +7,7 @@ const squares = document.querySelectorAll('.square');
 let snake = Math.ceil(Math.random() * squares.length);
 
 let failureNumber = 0;
+let moveInterval;
 
 // fail condition arrays
 const topBoundaryFailConditions = [];
@@ -93,32 +94,56 @@ function checkBoundary() {
     }
 }
 
-function MoveRight() {
-    squares[snake].classList.remove('green');
-    snake += 1;
-    squares[snake].classList.add('green');
-    failureNumber = 0;
-}
-
-function MoveLeft() {
-    squares[snake].classList.remove('green');
-    snake -= 1;
-    squares[snake].classList.add('green');
-    failureNumber = 0;
-}
-
 function MoveUp() {
-    squares[snake].classList.remove('green');
-    snake -= 20;
-    squares[snake].classList.add('green');
-    failureNumber = 0;
+    checkBoundary();
+    if (failureNumber === 1 || failureNumber === 5 || failureNumber === 6) {
+        clearInterval(moveInterval);
+        resetSnake();
+    } else {
+        squares[snake].classList.remove('green');
+        snake -= 20;
+        squares[snake].classList.add('green');
+        failureNumber = 0;
+    }
+}
+
+function MoveRight() {
+    checkBoundary();
+    if (failureNumber === 2 || failureNumber === 6 || failureNumber === 7) {
+        clearInterval(moveInterval);
+        resetSnake();
+    } else {
+        squares[snake].classList.remove('green');
+        snake += 1;
+        squares[snake].classList.add('green');
+        failureNumber = 0;
+    }
 }
 
 function MoveDown() {
-    squares[snake].classList.remove('green');
-    snake += 20;
-    squares[snake].classList.add('green');
-    failureNumber = 0;
+    checkBoundary();
+    if (failureNumber === 3 || failureNumber === 7 || failureNumber === 8) {
+        clearInterval(moveInterval);
+        resetSnake();
+    } else {
+        squares[snake].classList.remove('green');
+        snake += 20;
+        squares[snake].classList.add('green');
+        failureNumber = 0;
+    }
+}
+
+function MoveLeft() {
+    checkBoundary();
+    if (failureNumber === 4 || failureNumber === 5 || failureNumber === 8) {
+        clearInterval(moveInterval);
+        resetSnake();
+    } else {
+        squares[snake].classList.remove('green');
+        snake -= 1;
+        squares[snake].classList.add('green');
+        failureNumber = 0;
+    }
 }
 
 // ***Event Listeners***
@@ -131,6 +156,7 @@ function MoveDown() {
 document.addEventListener("keydown", function (event) {
     // console.log(failureNumber);
     checkBoundary();
+    clearInterval(moveInterval);
     if (failureNumber === 5 && (event.key === 'ArrowUp' || event.key === 'ArrowLeft')) {
         resetSnake()
     } else if (failureNumber === 6 && (event.key === 'ArrowUp' || event.key === 'ArrowRight')) {
@@ -148,13 +174,13 @@ document.addEventListener("keydown", function (event) {
     } else if (failureNumber === 4 && event.key === 'ArrowLeft') {
         resetSnake()
     } else if (event.key === 'ArrowUp') {
-        MoveUp();
+        moveInterval = setInterval(MoveUp, 50);
     } else if (event.key === 'ArrowRight') {
-        MoveRight();
+        moveInterval = setInterval(MoveRight, 50);
     } else if (event.key === 'ArrowDown') {
-        MoveDown();
+        moveInterval = setInterval(MoveDown, 50);
     } else if (event.key === 'ArrowLeft') {
-        MoveLeft();
+        moveInterval = setInterval(MoveLeft, 50);
     }
 })
 
