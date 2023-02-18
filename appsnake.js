@@ -4,7 +4,7 @@
 const squares = document.querySelectorAll('.square');
 // console.log(squares[0].innerHTML);
 
-let snake = Math.ceil(Math.random() * squares.length);
+let snake = 203;
 
 let failureNumber = 0;
 let moveInterval;
@@ -49,7 +49,7 @@ startingPoint(snake);
 function resetSnake() {
     console.log("You Lose");
     squares[snake].classList.remove('green');
-    snake = Math.ceil(Math.random() * squares.length);
+    snake = 203;
     startingPoint(snake);
 }
 
@@ -174,13 +174,13 @@ document.addEventListener("keydown", function (event) {
     } else if (failureNumber === 4 && event.key === 'ArrowLeft') {
         resetSnake()
     } else if (event.key === 'ArrowUp') {
-        moveInterval = setInterval(MoveUp, 50);
+        moveInterval = setInterval(MoveUp, 75);
     } else if (event.key === 'ArrowRight') {
-        moveInterval = setInterval(MoveRight, 50);
+        moveInterval = setInterval(MoveRight, 75);
     } else if (event.key === 'ArrowDown') {
-        moveInterval = setInterval(MoveDown, 50);
+        moveInterval = setInterval(MoveDown, 75);
     } else if (event.key === 'ArrowLeft') {
-        moveInterval = setInterval(MoveLeft, 50);
+        moveInterval = setInterval(MoveLeft, 75);
     }
 })
 
