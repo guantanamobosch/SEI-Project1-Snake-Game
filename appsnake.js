@@ -5,6 +5,7 @@ const squares = document.querySelectorAll('.square');
 // console.log(squares[0].innerHTML);
 
 let snake = 205;
+let tail = [204, 203];
 
 let failureNumber = 0;
 let moveInterval;
@@ -40,17 +41,25 @@ for (let i = 0; i < 401; i += 20) {
 // }
 // This one also didn't work for logging key presses
 
-function startingPoint(snake) {
+function snakeStartingPoint(snake) {
     squares[snake].classList.add('green');
+    for (let i = 0; i < tail.length; i++) {
+        squares[tail[i]].classList.add('green');
+    }
     failureNumber = 0;
 }
-startingPoint(snake);
+snakeStartingPoint(snake);
 
 function resetSnake() {
     console.log("You Lose");
     squares[snake].classList.remove('green');
+    for (let i = 0; i < tail.length; i++) {
+        squares[tail[i]].classList.remove('green')
+    }
     snake = 205;
-    startingPoint(snake);
+    tail[0] = 204;
+    tail[1] = 203;
+    snakeStartingPoint(snake);
 }
 
 function checkBoundary() {
@@ -82,7 +91,10 @@ function MoveUp() {
         resetSnake();
     } else {
         squares[snake].classList.remove('green');
+        tailMove();
+        // console.log(snake);
         snake -= 20;
+        // console.log(snake);
         squares[snake].classList.add('green');
         failureNumber = 0;
     }
@@ -95,6 +107,7 @@ function MoveRight() {
         resetSnake();
     } else {
         squares[snake].classList.remove('green');
+        tailMove();
         snake += 1;
         squares[snake].classList.add('green');
         failureNumber = 0;
@@ -108,6 +121,8 @@ function MoveDown() {
         resetSnake();
     } else {
         squares[snake].classList.remove('green');
+        tailMove();
+        // tailMove();
         snake += 20;
         squares[snake].classList.add('green');
         failureNumber = 0;
@@ -121,10 +136,24 @@ function MoveLeft() {
         resetSnake();
     } else {
         squares[snake].classList.remove('green');
+        tailMove();
         snake -= 1;
         squares[snake].classList.add('green');
         failureNumber = 0;
     }
+}
+
+function tailMove() {
+    squares[tail[0]].classList.remove('green');
+    for (let i = 1; i < tail.length; i++) {
+        squares[tail[i]].classList.remove('green');
+        tail[i] = tail[i - 1];
+        squares[tail[i]].classList.add('green');
+
+    }
+    tail[0] = snake;
+    // console.log(tail[0]);
+    squares[tail[0]].classList.add('green');
 }
 
 // ***Event Listeners***
