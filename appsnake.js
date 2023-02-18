@@ -4,7 +4,7 @@
 const squares = document.querySelectorAll('.square');
 // console.log(squares[0].innerHTML);
 
-let snake = 203;
+let snake = 205;
 
 let failureNumber = 0;
 let moveInterval;
@@ -49,28 +49,9 @@ startingPoint(snake);
 function resetSnake() {
     console.log("You Lose");
     squares[snake].classList.remove('green');
-    snake = 203;
+    snake = 205;
     startingPoint(snake);
 }
-
-
-// testing the fail condition for loop - I think I need to change the terminating condition to i < 20
-// for (let i = 0; i < 20; i++) {
-//     console.log(topBoundaryFailConditions[i]);
-// }
-
-// function checkForFailCondition() {
-//     // for loop to test keyboard input against fail conditions
-//     for (let i = 0; i < 20; i++) {
-//         if (squares[snake] === rightBoundaryFailConditions[i]) {
-//             return "crashRight";
-//         }
-//         //     || (squares[snake] === bottomBoundaryFailConditions[i] && event.key === 'ArrowDown') || (squares[snake] === leftBoundaryFailConditions[i] && event.key === 'ArrowLeft') || (squares[snake] === topBoundaryFailConditions[i] && event.key === 'ArrowUp')) {
-//         //     console.log("You lose!");
-//         //     startingPoint(snake);
-//         // }
-//     }
-// }
 
 function checkBoundary() {
     for (let i = 0; i < rightBoundaryFailConditions.length; i++) {
