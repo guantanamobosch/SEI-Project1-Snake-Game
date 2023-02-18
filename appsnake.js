@@ -41,9 +41,16 @@ for (let i = 0; i < 401; i += 20) {
 
 function startingPoint(snake) {
     squares[snake].classList.add('green');
+    failureNumber = 0;
 }
 startingPoint(snake);
 
+function resetSnake() {
+    console.log("You Lose");
+    squares[snake].classList.remove('green');
+    snake = Math.ceil(Math.random() * squares.length);
+    startingPoint(snake);
+}
 
 
 // testing the fail condition for loop - I think I need to change the terminating condition to i < 20
@@ -122,32 +129,24 @@ function MoveDown() {
 
 
 document.addEventListener("keydown", function (event) {
-    console.log(failureNumber);
+    // console.log(failureNumber);
     checkBoundary();
     if (failureNumber === 5 && (event.key === 'ArrowUp' || event.key === 'ArrowLeft')) {
-        console.log("You Lose");
-        startingPoint();
+        resetSnake()
     } else if (failureNumber === 6 && (event.key === 'ArrowUp' || event.key === 'ArrowRight')) {
-        console.log("You Lose");
-        startingPoint();
+        resetSnake()
     } else if (failureNumber === 7 && (event.key === 'ArrowRight' || event.key === 'ArrowDown')) {
-        console.log("You Lose");
-        startingPoint();
+        resetSnake()
     } else if (failureNumber === 8 && (event.key === 'ArrowDown' || event.key === 'ArrowLeft')) {
-        console.log("You Lose");
-        startingPoint();
+        resetSnake()
     } else if (failureNumber === 1 && event.key === 'ArrowUp') {
-        console.log("You Lose");
-        startingPoint();
+        resetSnake()
     } else if (failureNumber === 2 && event.key === 'ArrowRight') {
-        console.log("You Lose");
-        startingPoint();
+        resetSnake()
     } else if (failureNumber === 3 && event.key === 'ArrowDown') {
-        console.log("You Lose");
-        startingPoint();
+        resetSnake()
     } else if (failureNumber === 4 && event.key === 'ArrowLeft') {
-        console.log("You Lose");
-        startingPoint();
+        resetSnake()
     } else if (event.key === 'ArrowUp') {
         MoveUp();
     } else if (event.key === 'ArrowRight') {
