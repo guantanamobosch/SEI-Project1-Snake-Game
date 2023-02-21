@@ -1,0 +1,1 @@
+<!-- As a casual gamer, I want to have a simple, aesthetic webpage where I can play one of my favorite classic games, Snake, and track my high score, so I can track my progress and even compete with my friends. -->

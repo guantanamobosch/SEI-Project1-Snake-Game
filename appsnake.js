@@ -14,6 +14,11 @@ let apple = 214;
 let failureNumber = 0;
 let moveInterval;
 
+let appleAbove = false;
+let appleToTheRight = false;
+let appleBelow = false;
+let appleToTheLeft = false;
+
 // fail condition arrays
 const topBoundaryFailConditions = [];
 const rightBoundaryFailConditions = [];
@@ -24,13 +29,13 @@ const leftBoundaryFailConditions = [];
 for (let i = 0; i < 20; i++) {
     topBoundaryFailConditions.push(i);
 }
-for (let i = 19; i < 420; i += 20) {
+for (let i = 19; i < 400; i += 20) {
     rightBoundaryFailConditions.push(i);
 }
-for (let i = 400; i < 420; i++) {
+for (let i = 380; i < 400; i++) {
     bottomBoundaryFailConditions.push(i);
 }
-for (let i = 0; i < 401; i += 20) {
+for (let i = 0; i < 381; i += 20) {
     leftBoundaryFailConditions.push(i);
 }
 // console.log(topBoundaryFailConditions);
@@ -47,7 +52,6 @@ for (let i = 0; i < 401; i += 20) {
 
 function appleStartingPoint(apple) {
     squares[apple].classList.add('red');
-    squares[apple].id = "apple";
 }
 appleStartingPoint(apple);
 // console.log(squares[apple].classList[1]);
@@ -66,11 +70,18 @@ function resetSnake() {
     squares[snake].classList.remove('green');
     for (let i = 0; i < tail.length; i++) {
         squares[tail[i]].classList.remove('green')
+        console.log(squares[tail[i]]);
     }
     snake = 205;
     tail[0] = 204;
     tail[1] = 203;
     snakeStartingPoint(snake);
+}
+
+function resetApple() {
+    console.log("Yum yum!");
+    let apple = Math.floor(Math.random() * 400);
+    squares[apple].classList.add('red');
 }
 
 function checkBoundary() {
@@ -97,11 +108,7 @@ function checkBoundary() {
 
 // console.log(squares[snake - 20]);
 function checkForApple() {
-    let appleAbove;
-    let appleToTheRight;
-    let appleBelow;
-    let appleToTheLeft;
-    if (squares[snake - 20].classList[1] === "red") {
+    if (snake > 19 && squares[snake - 20].classList[1] === "red") {
         appleAbove = true;
         console.log("There's an apple above my head!")
         return;
@@ -109,26 +116,34 @@ function checkForApple() {
         appleToTheRight = true;
         console.log("There's an apple to the right!")
         return;
-    }
-    if (squares[snake + 20].classList[1] === "red") {
+    } else if (squares[snake + 20].classList[1] === "red") {
         appleBelow = true;
         console.log("There's an apple below me!")
         return;
-    }
-    if (squares[snake - 1].classList[1] === "red") {
+    } else if (snake > 0 && squares[snake - 1].classList[1] === "red") {
         appleToTheLeft = true;
         console.log("There's an apple to the left!")
         return;
-    } else console.log("There's nothing there")
+    } else {
+        // console.log("There's nothing there")
+        appleAbove = false;
+        appleToTheRight = false;
+        appleBelow = false;
+        appleToTheLeft = false;
+    }
 }
 
 function MoveUp() {
     checkBoundary();
-    // checkForApple();
+    checkForApple();
     if (failureNumber === 1 || failureNumber === 5 || failureNumber === 6) {
         clearInterval(moveInterval);
         resetSnake();
-    } else {
+        return;
+    } else if (appleAbove === true) {
+        squares[snake - 20].classList.remove('red');
+        resetApple();
+        tail.push(tail[tail.length - 1])
         squares[snake].classList.remove('green');
         tailMove();
         // console.log(snake);
@@ -136,51 +151,95 @@ function MoveUp() {
         // console.log(snake);
         squares[snake].classList.add('green');
         failureNumber = 0;
+        return;
+    } else {
+        squares[snake].classList.remove('green');
+        tailMove();
+        snake -= 20;
+        squares[snake].classList.add('green');
+        failureNumber = 0;
+        return;
     }
 }
 
 function MoveRight() {
     checkBoundary();
-    // checkForApple();
+    checkForApple();
     if (failureNumber === 2 || failureNumber === 6 || failureNumber === 7) {
         clearInterval(moveInterval);
         resetSnake();
+        return;
+    } else if (appleToTheRight === true) {
+        squares[snake + 1].classList.remove('red');
+        resetApple();
+        tail.push(tail[tail.length - 1])
+        squares[snake].classList.remove('green');
+        tailMove();
+        snake += 1;
+        squares[snake].classList.add('green');
+        failureNumber = 0;
+        return;
     } else {
         squares[snake].classList.remove('green');
         tailMove();
         snake += 1;
         squares[snake].classList.add('green');
         failureNumber = 0;
+        return;
     }
 }
 
 function MoveDown() {
     checkBoundary();
-    // checkForApple();
+    checkForApple();
     if (failureNumber === 3 || failureNumber === 7 || failureNumber === 8) {
         clearInterval(moveInterval);
         resetSnake();
+        return;
+    } else if (appleBelow === true) {
+        squares[snake + 20].classList.remove('red');
+        resetApple();
+        tail.push(tail[tail.length - 1])
+        squares[snake].classList.remove('green');
+        tailMove();
+        snake += 20;
+        squares[snake].classList.add('green');
+        failureNumber = 0;
+        return;
     } else {
         squares[snake].classList.remove('green');
         tailMove();
         snake += 20;
         squares[snake].classList.add('green');
         failureNumber = 0;
+        return;
     }
 }
 
 function MoveLeft() {
     checkBoundary();
-    // checkForApple();
+    checkForApple();
     if (failureNumber === 4 || failureNumber === 5 || failureNumber === 8) {
         clearInterval(moveInterval);
         resetSnake();
+        return;
+    } else if (appleToTheLeft === true) {
+        squares[snake - 1].classList.remove('red');
+        resetApple();
+        tail.push(tail[tail.length - 1])
+        squares[snake].classList.remove('green');
+        tailMove();
+        snake -= 1;
+        squares[snake].classList.add('green');
+        failureNumber = 0;
+        return;
     } else {
         squares[snake].classList.remove('green');
         tailMove();
         snake -= 1;
         squares[snake].classList.add('green');
         failureNumber = 0;
+        return;
     }
 }
 
