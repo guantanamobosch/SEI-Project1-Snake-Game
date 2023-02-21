@@ -8,6 +8,9 @@ let snake = 205;
 let tail = [204, 203];
 let apple = 214;
 
+// console.log(squares[apple].id);
+// console.log(squares[apple].classList.value);
+
 let failureNumber = 0;
 let moveInterval;
 
@@ -44,8 +47,10 @@ for (let i = 0; i < 401; i += 20) {
 
 function appleStartingPoint(apple) {
     squares[apple].classList.add('red');
+    squares[apple].id = "apple";
 }
 appleStartingPoint(apple);
+// console.log(squares[apple].classList[1]);
 
 function snakeStartingPoint(snake) {
     squares[snake].classList.add('green');
@@ -90,17 +95,36 @@ function checkBoundary() {
     }
 }
 
+// console.log(squares[snake - 20]);
 function checkForApple() {
     let appleAbove;
     let appleToTheRight;
     let appleBelow;
     let appleToTheLeft;
-
-
+    if (squares[snake - 20].classList[1] === "red") {
+        appleAbove = true;
+        console.log("There's an apple above my head!")
+        return;
+    } else if (squares[snake + 1].classList[1] === "red") {
+        appleToTheRight = true;
+        console.log("There's an apple to the right!")
+        return;
+    }
+    if (squares[snake + 20].classList[1] === "red") {
+        appleBelow = true;
+        console.log("There's an apple below me!")
+        return;
+    }
+    if (squares[snake - 1].classList[1] === "red") {
+        appleToTheLeft = true;
+        console.log("There's an apple to the left!")
+        return;
+    } else console.log("There's nothing there")
 }
 
 function MoveUp() {
     checkBoundary();
+    // checkForApple();
     if (failureNumber === 1 || failureNumber === 5 || failureNumber === 6) {
         clearInterval(moveInterval);
         resetSnake();
@@ -117,6 +141,7 @@ function MoveUp() {
 
 function MoveRight() {
     checkBoundary();
+    // checkForApple();
     if (failureNumber === 2 || failureNumber === 6 || failureNumber === 7) {
         clearInterval(moveInterval);
         resetSnake();
@@ -131,6 +156,7 @@ function MoveRight() {
 
 function MoveDown() {
     checkBoundary();
+    // checkForApple();
     if (failureNumber === 3 || failureNumber === 7 || failureNumber === 8) {
         clearInterval(moveInterval);
         resetSnake();
@@ -145,6 +171,7 @@ function MoveDown() {
 
 function MoveLeft() {
     checkBoundary();
+    // checkForApple();
     if (failureNumber === 4 || failureNumber === 5 || failureNumber === 8) {
         clearInterval(moveInterval);
         resetSnake();
@@ -264,14 +291,23 @@ document.addEventListener("keydown", function (event) {
     } else if (failureNumber === 4 && event.key === 'ArrowLeft') {
         resetSnake()
     } else if (event.key === 'ArrowUp') {
-        moveInterval = setInterval(MoveUp, 75);
+        // moveInterval = setInterval(
+        MoveUp();
+        // , 75);
     } else if (event.key === 'ArrowRight') {
-        moveInterval = setInterval(MoveRight, 75);
+        // moveInterval = setInterval(
+        MoveRight();
+        // , 75);
     } else if (event.key === 'ArrowDown') {
-        moveInterval = setInterval(MoveDown, 75);
+        // moveInterval = setInterval(
+        MoveDown();
+        // , 75);
     } else if (event.key === 'ArrowLeft') {
-        moveInterval = setInterval(MoveLeft, 75);
+        // moveInterval = setInterval(
+        MoveLeft();
+        // , 75);
     }
+    checkForApple();
 })
 
 // this method of 'keydown' did work, and I got it directly from https://css-tricks.com/snippets/javascript/javascript-keycodes/ --- yeehaw
