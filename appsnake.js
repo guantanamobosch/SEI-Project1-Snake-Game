@@ -349,19 +349,19 @@ document.addEventListener("keydown", function (event) {
         resetSnake()
     } else if (failureNumber === 4 && event.key === 'ArrowLeft') {
         resetSnake()
-    } else if (event.key === 'ArrowUp') {
+    } else if (event.key === 'ArrowUp' && squares[snake - 20].classList[1] !== "green") {
         // moveInterval = setInterval(
         MoveUp();
         // , 75);
-    } else if (event.key === 'ArrowRight') {
+    } else if (event.key === 'ArrowRight' && squares[snake + 1].classList[1] !== "green") {
         // moveInterval = setInterval(
         MoveRight();
         // , 75);
-    } else if (event.key === 'ArrowDown') {
+    } else if (event.key === 'ArrowDown' && squares[snake + 20].classList[1] !== "green") {
         // moveInterval = setInterval(
         MoveDown();
         // , 75);
-    } else if (event.key === 'ArrowLeft') {
+    } else if (event.key === 'ArrowLeft' && squares[snake - 1].classList[1] !== "green") {
         // moveInterval = setInterval(
         MoveLeft();
         // , 75);
