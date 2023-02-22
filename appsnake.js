@@ -200,6 +200,7 @@ function checkForTail() {
 function MoveUp() {
     checkBoundary();
     checkForApple();
+    checkForTail();
     if (failureNumber === 1 || failureNumber === 5 || failureNumber === 6) {
         clearInterval(moveInterval);
         resetSnake();
@@ -229,6 +230,7 @@ function MoveUp() {
 function MoveRight() {
     checkBoundary();
     checkForApple();
+    checkForTail();
     if (failureNumber === 2 || failureNumber === 6 || failureNumber === 7) {
         clearInterval(moveInterval);
         resetSnake();
@@ -256,6 +258,7 @@ function MoveRight() {
 function MoveDown() {
     checkBoundary();
     checkForApple();
+    checkForTail();
     if (failureNumber === 3 || failureNumber === 7 || failureNumber === 8 || tailBelow === true) {
         clearInterval(moveInterval);
         resetSnake();
@@ -283,6 +286,7 @@ function MoveDown() {
 function MoveLeft() {
     checkBoundary();
     checkForApple();
+    checkForTail();
     if (failureNumber === 4 || failureNumber === 5 || failureNumber === 8) {
         clearInterval(moveInterval);
         resetSnake();
@@ -414,21 +418,17 @@ document.addEventListener("keydown", function (event) {
     } else if (failureNumber === 4 && event.key === 'ArrowLeft' || tailLeft === true && event.key === 'ArrowLeft') {
         resetSnake()
     } else if (event.key === 'ArrowUp' && squares[snake - 20].classList[1] !== "green") {
-        // moveInterval = setInterval(
-        MoveUp();
-        // , 75);
+        moveInterval = setInterval(MoveUp, 75);
+        // MoveUp();
     } else if (event.key === 'ArrowRight' && squares[snake + 1].classList[1] !== "green") {
-        // moveInterval = setInterval(
-        MoveRight();
-        // , 75);
+        moveInterval = setInterval(MoveRight, 75);
+        // MoveRight();
     } else if (event.key === 'ArrowDown' && squares[snake + 20].classList[1] !== "green") {
-        // moveInterval = setInterval(
-        MoveDown();
-        // , 75);
+        moveInterval = setInterval(MoveDown, 75);
+        // MoveDown();
     } else if (event.key === 'ArrowLeft' && squares[snake - 1].classList[1] !== "green") {
-        // moveInterval = setInterval(
-        MoveLeft();
-        // , 75);
+        moveInterval = setInterval(MoveLeft, 75);
+        // MoveLeft();
     }
     checkForApple();
     checkForTail();
