@@ -7,21 +7,16 @@ body {
     background-repeat: no-repeat;
 }
 
-#snake {
-    color: #4178BF;
-    text-align: center;
-    font-family: 'Tilt Warp';
-    font-size: 5em;
-    position: relative;
-    margin: 0%;
-    text-shadow: 2px 2px blanchedalmond;
+main {
+    display: flex;
+    justify-content: center;
 }
 
-/* nav {
-    height: 10vh;
-    text-align: center;
-    background-color: chocolate;
-} */
+.text {
+    color: #4178BF;
+    font-family: 'Tilt Warp';
+    text-shadow: 2px 2px blanchedalmond;
+}
 
 
 .center {
@@ -42,10 +37,6 @@ body {
     background-color: white;
 }
 
-main {
-    display: flex;
-    justify-content: center;
-}
 
 .green {
     background-color: green;
@@ -53,4 +44,18 @@ main {
 
 .red {
     background-color: red;
+}
+
+#snake {
+    text-align: center;
+    font-size: 5em;
+    position: relative;
+    margin: 0%;
+}
+
+#yourscore {
+    display: block;
+    position: relative;
+    top: 25px;
+    left: 1000px;
 }
