@@ -76,13 +76,10 @@ function resetSnake() {
         squares[i].classList.remove('green')
         squares[i].classList.remove('red')
     }
-    for (let i = 0; i < tail.length; i++) {
-        console.log(tail[i]);
-        squares[tail[i]].classList.remove('green')
-        if (i > 1) {
-            tail.pop(i);
-        }
+    for (let i = tail.length; i > 2; i--) {
+        tail.pop();
     }
+    // console.log(tail);
     snake = 205;
     tail[0] = 204;
     tail[1] = 203;

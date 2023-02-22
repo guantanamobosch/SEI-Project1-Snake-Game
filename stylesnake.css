@@ -1,28 +1,31 @@
 body {
-    background-color: burlywood;
+    background-color: #F5CF9C;
+    background-image: url("https://i.imgur.com/91FkfGZ.png");
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 
-nav {
+/* nav {
     height: 10vh;
     text-align: center;
     background-color: chocolate;
-}
+} */
 
 
 .center {
     background-color: aliceblue;
-    width: 45%;
+    width: 40%;
 }
 
 .row {
     display: flex;
-    height: 3.9vh;
+    height: 3.5vh;
     border: .5px solid black;
 }
 
 .square {
     border: .5px solid black;
-    width: 3.9vh;
+    width: 3.5vh;
     background-color: white;
 }
 
