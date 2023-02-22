@@ -19,6 +19,11 @@ let appleToTheRight = false;
 let appleBelow = false;
 let appleToTheLeft = false;
 
+let tailAbove = false;
+let tailRight = false;
+let tailBelow = false;
+let tailLeft = false;
+
 // fail condition arrays
 const topBoundaryFailConditions = [];
 const rightBoundaryFailConditions = [];
@@ -110,19 +115,19 @@ function checkBoundary() {
 function checkForApple() {
     if (snake > 19 && squares[snake - 20].classList[1] === "red") {
         appleAbove = true;
-        console.log("There's an apple above my head!")
+        // console.log("There's an apple above my head!")
         return;
-    } else if (squares[snake + 1].classList[1] === "red") {
+    } else if (snake < 399 && squares[snake + 1].classList[1] === "red") {
         appleToTheRight = true;
-        console.log("There's an apple to the right!")
+        // console.log("There's an apple to the right!")
         return;
-    } else if (squares[snake + 20].classList[1] === "red") {
+    } else if (snake < 380 && squares[snake + 20].classList[1] === "red") {
         appleBelow = true;
-        console.log("There's an apple below me!")
+        // console.log("There's an apple below me!")
         return;
     } else if (snake > 0 && squares[snake - 1].classList[1] === "red") {
         appleToTheLeft = true;
-        console.log("There's an apple to the left!")
+        // console.log("There's an apple to the left!")
         return;
     } else {
         // console.log("There's nothing there")
@@ -130,6 +135,62 @@ function checkForApple() {
         appleToTheRight = false;
         appleBelow = false;
         appleToTheLeft = false;
+    }
+}
+
+// function checkForTail() {
+//     if (snake > 19 && squares[snake - 20].classList[1] === "green") {
+//         tailAbove = true;
+//         console.log("My tail is above my head!")
+//         tailRight = false;
+//         tailBelow = false;
+//         tailLeft = false;
+//         return;
+//     } else if (snake < 399 && squares[snake + 1].classList[1] === "green") {
+//         tailRight = true;
+//         console.log("My tail is to the right!")
+//         tailAbove = false;
+//         tailBelow = false;
+//         tailLeft = false;
+//         return;
+//     } else if (snake < 380 && squares[snake + 20].classList[1] === "green") {
+//         tailBelow = true;
+//         console.log("My tail is below me!")
+//         tailAbove = false;
+//         tailRight = false;
+//         tailLeft = false;
+//         return;
+//     } else if (snake > 0 && squares[snake - 1].classList[1] === "green") {
+//         tailLeft = true;
+//         console.log("My tail is to the left!")
+//         tailAbove = false;
+//         tailRight = false;
+//         tailBelow = false;
+//         return;
+//     } else {
+//         // console.log("There's nothing there")
+//         tailAbove = false;
+//         tailRight = false;
+//         tailBelow = false;
+//         tailLeft = false;
+//     }
+// }
+
+function checkForTail() {
+    tailAbove = false;
+    tailRight = false;
+    tailBelow = false;
+    tailLeft = false;
+    for (let i = 2; i < tail.length; i++) {
+        if (snake > 19 && tail[i] === (snake - 20)) {
+            tailAbove = true;
+        } else if (snake < 399 && tail[i] === (snake + 1)) {
+            tailRight = true;
+        } else if (snake < 380 && tail[i] === (snake + 20)) {
+            tailBelow = true;
+        } else if (snake > 0 && tail[i] === (snake - 1)) {
+            tailLeft = true;
+        } else return;
     }
 }
 
@@ -341,13 +402,13 @@ document.addEventListener("keydown", function (event) {
         resetSnake()
     } else if (failureNumber === 8 && (event.key === 'ArrowDown' || event.key === 'ArrowLeft')) {
         resetSnake()
-    } else if (failureNumber === 1 && event.key === 'ArrowUp') {
+    } else if (failureNumber === 1 && event.key === 'ArrowUp' || tailAbove === true && event.key === 'ArrowUp') {
         resetSnake()
-    } else if (failureNumber === 2 && event.key === 'ArrowRight') {
+    } else if (failureNumber === 2 && event.key === 'ArrowRight' || tailRight === true && event.key === 'ArrowRight') {
         resetSnake()
-    } else if (failureNumber === 3 && event.key === 'ArrowDown') {
+    } else if (failureNumber === 3 && event.key === 'ArrowDown' || tailBelow === true && event.key === 'ArrowDown') {
         resetSnake()
-    } else if (failureNumber === 4 && event.key === 'ArrowLeft') {
+    } else if (failureNumber === 4 && event.key === 'ArrowLeft' || tailLeft === true && event.key === 'ArrowLeft') {
         resetSnake()
     } else if (event.key === 'ArrowUp' && squares[snake - 20].classList[1] !== "green") {
         // moveInterval = setInterval(
@@ -367,6 +428,7 @@ document.addEventListener("keydown", function (event) {
         // , 75);
     }
     checkForApple();
+    checkForTail();
 })
 
 // this method of 'keydown' did work, and I got it directly from https://css-tricks.com/snippets/javascript/javascript-keycodes/ --- yeehaw
