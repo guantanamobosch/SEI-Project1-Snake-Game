@@ -7,6 +7,8 @@ const squares = document.querySelectorAll('.square');
 let snake = 205;
 let tail = [204, 203];
 let apple = 214;
+let score = 0;
+let highScore = 0;
 
 // console.log(squares[apple].id);
 // console.log(squares[apple].classList.value);
