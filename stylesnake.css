@@ -1,10 +1,11 @@
 body {
     background-color: #F5CF9C;
     background-image: url("https://i.imgur.com/Uddccre.png");
-    background-size: 1220px;
+    background-size: 1175px;
     background-position-x: center;
-    background-position-y: 25%;
+    background-position-y: 15%;
     background-repeat: no-repeat;
+    height: 500px;
 }
 
 main {
@@ -24,6 +25,7 @@ main {
     background-color: aliceblue;
     width: 37%;
     position: relative;
+    left: 450px;
     /* justify-content: center; */
 }
 
@@ -57,12 +59,34 @@ main {
 
 #yourscore {
     position: relative;
-    top: 100px;
-    left: 100px;
+    top: 90px;
+    left: 135px;
+    width: 50%;
 }
 
 #highscore {
-    display: block;
-    position: absolute;
-    right: 500px;
+    position: relative;
+    left: 200px;
+    top: -50px;
+    width: 50%;
+}
+
+#yourscorenumber {
+    position: relative;
+    top: 115px;
+    left: 30px;
+    font-size: 3em;
+    color: #faf3e9;
+    text-shadow: 2px 2px #4178BF;
+    width: 50%;
+}
+
+#highscorenumber {
+    position: relative;
+    left: 260px;
+    top: -90px;
+    font-size: 3em;
+    color: #faf3e9;
+    text-shadow: 2px 2px #4178BF;
+    width: 50%;
 }

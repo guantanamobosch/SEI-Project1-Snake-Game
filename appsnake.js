@@ -7,10 +7,10 @@ const squares = document.querySelectorAll('.square');
 let snake = 205;
 let tail = [204, 203];
 let apple = 214;
-let yourScore = document.getElementById('yourscorenumber');
-let highScore = document.getElementById('highscorenumber');
-yourScore.innerHTML = 0;
-highScore.innerHTML = 0;
+let yourScoreHTML = document.getElementById('yourscorenumber');
+let highScoreHTML = document.getElementById('highscorenumber');
+let currentScore = 0;
+let highestScore = 0;
 
 // console.log(squares[apple].id);
 // console.log(squares[apple].classList.value);
@@ -210,11 +210,19 @@ function MoveUp() {
     if (failureNumber === 1 || failureNumber === 5 || failureNumber === 6) {
         clearInterval(moveInterval);
         resetSnake();
+        if (currentScore > highestScore) {
+            highestScore = currentScore;
+        }
+        highScoreHTML.innerHTML = highestScore;
+        currentScore = 0;
+        yourScoreHTML.innerHTML = currentScore;
         return;
     } else if (appleAbove === true) {
         squares[snake - 20].classList.remove('red');
         resetApple();
         tail.push(tail[tail.length - 1])
+        currentScore++;
+        yourScoreHTML.innerHTML = currentScore;
         squares[snake].classList.remove('green');
         tailMove();
         // console.log(snake);
@@ -240,11 +248,19 @@ function MoveRight() {
     if (failureNumber === 2 || failureNumber === 6 || failureNumber === 7) {
         clearInterval(moveInterval);
         resetSnake();
+        if (currentScore > highestScore) {
+            highestScore = currentScore;
+        }
+        highScoreHTML.innerHTML = highestScore;
+        currentScore = 0;
+        yourScoreHTML.innerHTML = currentScore;
         return;
     } else if (appleToTheRight === true) {
         squares[snake + 1].classList.remove('red');
         resetApple();
         tail.push(tail[tail.length - 1])
+        currentScore++;
+        yourScoreHTML.innerHTML = currentScore;
         squares[snake].classList.remove('green');
         tailMove();
         snake += 1;
@@ -268,11 +284,19 @@ function MoveDown() {
     if (failureNumber === 3 || failureNumber === 7 || failureNumber === 8 || tailBelow === true) {
         clearInterval(moveInterval);
         resetSnake();
+        if (currentScore > highestScore) {
+            highestScore = currentScore;
+        }
+        highScoreHTML.innerHTML = highestScore;
+        currentScore = 0;
+        yourScoreHTML.innerHTML = currentScore;
         return;
     } else if (appleBelow === true) {
         squares[snake + 20].classList.remove('red');
         resetApple();
         tail.push(tail[tail.length - 1])
+        currentScore++;
+        yourScoreHTML.innerHTML = currentScore;
         squares[snake].classList.remove('green');
         tailMove();
         snake += 20;
@@ -296,11 +320,19 @@ function MoveLeft() {
     if (failureNumber === 4 || failureNumber === 5 || failureNumber === 8) {
         clearInterval(moveInterval);
         resetSnake();
+        if (currentScore > highestScore) {
+            highestScore = currentScore;
+        }
+        highScoreHTML.innerHTML = highestScore;
+        currentScore = 0;
+        yourScoreHTML.innerHTML = currentScore;
         return;
     } else if (appleToTheLeft === true) {
         squares[snake - 1].classList.remove('red');
         resetApple();
         tail.push(tail[tail.length - 1])
+        currentScore++;
+        yourScoreHTML.innerHTML = currentScore;
         squares[snake].classList.remove('green');
         tailMove();
         snake -= 1;
