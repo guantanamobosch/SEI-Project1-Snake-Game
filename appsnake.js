@@ -74,8 +74,11 @@ function resetSnake() {
     console.log("You Lose");
     squares[snake].classList.remove('green');
     for (let i = 0; i < tail.length; i++) {
+        console.log(tail[i]);
         squares[tail[i]].classList.remove('green')
-        console.log(squares[tail[i]]);
+        if (i > 1) {
+            tail.pop(i);
+        }
     }
     snake = 205;
     tail[0] = 204;
@@ -253,7 +256,7 @@ function MoveRight() {
 function MoveDown() {
     checkBoundary();
     checkForApple();
-    if (failureNumber === 3 || failureNumber === 7 || failureNumber === 8) {
+    if (failureNumber === 3 || failureNumber === 7 || failureNumber === 8 || tailBelow === true) {
         clearInterval(moveInterval);
         resetSnake();
         return;
