@@ -21,6 +21,13 @@ main {
 
 }
 
+li {
+    color: #c47808;
+    text-shadow: 3px 3px blanchedalmond;
+    font-size: x-large;
+    font-family: 'Tilt Warp';
+}
+
 .text {
     color: #4178BF;
     font-family: 'Tilt Warp';
@@ -32,7 +39,7 @@ main {
     background-color: aliceblue;
     width: 55%;
     position: relative;
-    left: 435px;
+    left: 292px;
     /* justify-content: center; */
 }
 
@@ -68,8 +75,8 @@ main {
 #yourscore {
     position: relative;
     top: 40px;
-    left: 470px;
-    width: 50%;
+    left: 330px;
+    width: 70%;
 }
 
 #highscore {
@@ -82,7 +89,7 @@ main {
 #yourscorenumber {
     position: relative;
     top: 75px;
-    left: 310px;
+    left: 215px;
     font-size: 3em;
     color: #faf3e9;
     text-shadow: 2px 2px #4178BF;
