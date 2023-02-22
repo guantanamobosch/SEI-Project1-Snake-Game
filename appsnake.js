@@ -72,7 +72,10 @@ snakeStartingPoint(snake);
 
 function resetSnake() {
     console.log("You Lose");
-    squares[snake].classList.remove('green');
+    for (let i = 0; i < squares.length; i++) {
+        squares[i].classList.remove('green')
+        squares[i].classList.remove('red')
+    }
     for (let i = 0; i < tail.length; i++) {
         console.log(tail[i]);
         squares[tail[i]].classList.remove('green')
@@ -83,7 +86,9 @@ function resetSnake() {
     snake = 205;
     tail[0] = 204;
     tail[1] = 203;
+    apple = 214;
     snakeStartingPoint(snake);
+    appleStartingPoint(apple);
 }
 
 function resetApple() {
