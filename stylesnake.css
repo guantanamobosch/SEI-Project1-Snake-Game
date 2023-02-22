@@ -10,6 +10,7 @@ body {
 main {
     display: flex;
     justify-content: center;
+    position: relative;
 }
 
 .text {
@@ -23,6 +24,7 @@ main {
     background-color: aliceblue;
     width: 37%;
     position: relative;
+    /* justify-content: center; */
 }
 
 .row {
@@ -54,8 +56,13 @@ main {
 }
 
 #yourscore {
-    display: block;
     position: relative;
-    top: 25px;
-    left: 1000px;
+    top: 100px;
+    left: 100px;
+}
+
+#highscore {
+    display: block;
+    position: absolute;
+    right: 500px;
 }
