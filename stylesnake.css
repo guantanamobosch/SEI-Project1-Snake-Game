@@ -29,7 +29,7 @@ li {
 }
 
 .text {
-    color: #4178BF;
+    color: #6cabff;
     font-family: 'Tilt Warp';
     text-shadow: 2px 2px blanchedalmond;
 }
@@ -92,7 +92,7 @@ li {
     left: 215px;
     font-size: 3em;
     color: #faf3e9;
-    text-shadow: 2px 2px #4178BF;
+    text-shadow: 2px 2px #6cabff;
     width: 50%;
 }
 
@@ -102,6 +102,6 @@ li {
     top: -150px;
     font-size: 3em;
     color: #faf3e9;
-    text-shadow: 2px 2px #4178BF;
+    text-shadow: 2px 2px #6cabff;
     width: 50%;
 }
