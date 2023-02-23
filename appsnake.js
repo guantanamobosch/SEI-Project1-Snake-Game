@@ -2,18 +2,15 @@
 
 // let's store the squares in some variables
 const squares = document.querySelectorAll('.square');
-// console.log(squares[0].innerHTML);
 
 let snake = 205;
 let tail = [204, 203];
 let apple = 214;
+
 let yourScoreHTML = document.getElementById('yourscorenumber');
 let highScoreHTML = document.getElementById('highscorenumber');
 let currentScore = 0;
 let highestScore = 0;
-
-// console.log(squares[apple].id);
-// console.log(squares[apple].classList.value);
 
 let failureNumber = 0;
 let moveInterval;
@@ -23,12 +20,13 @@ let appleToTheRight = false;
 let appleBelow = false;
 let appleToTheLeft = false;
 
+
+// fail condition arrays
 let tailAbove = false;
 let tailRight = false;
 let tailBelow = false;
 let tailLeft = false;
 
-// fail condition arrays
 const topBoundaryFailConditions = [];
 const rightBoundaryFailConditions = [];
 const bottomBoundaryFailConditions = [];
@@ -47,23 +45,13 @@ for (let i = 380; i < 400; i++) {
 for (let i = 0; i < 381; i += 20) {
     leftBoundaryFailConditions.push(i);
 }
-// console.log(topBoundaryFailConditions);
-// console.log(rightBoundaryFailConditions);
-// console.log(bottomBoundaryFailConditions);
-// console.log(leftBoundaryFailConditions);
 
 // ***Functions***
-// function myFunction(event) {
-//     let key = event.key;
-//     console.log(key);
-// }
-// This one also didn't work for logging key presses
 
 function appleStartingPoint(apple) {
     squares[apple].classList.add('red');
 }
 appleStartingPoint(apple);
-// console.log(squares[apple].classList[1]);
 
 function snakeStartingPoint(snake) {
     squares[snake].classList.add('green');
@@ -81,7 +69,6 @@ function resetSnake() {
         squares[i].classList.remove('red')
     }
     tail.splice(2, (tail.length - 2));
-    // console.log(tail);
     snake = 205;
     tail[0] = 204;
     tail[1] = 203;
@@ -118,70 +105,26 @@ function checkBoundary() {
     }
 }
 
-// console.log(squares[snake - 20]);
 function checkForApple() {
     if (snake > 19 && squares[snake - 20].classList[1] === "red") {
         appleAbove = true;
-        // console.log("There's an apple above my head!")
         return;
     } else if (snake < 399 && squares[snake + 1].classList[1] === "red") {
         appleToTheRight = true;
-        // console.log("There's an apple to the right!")
         return;
     } else if (snake < 380 && squares[snake + 20].classList[1] === "red") {
         appleBelow = true;
-        // console.log("There's an apple below me!")
         return;
     } else if (snake > 0 && squares[snake - 1].classList[1] === "red") {
         appleToTheLeft = true;
-        // console.log("There's an apple to the left!")
         return;
     } else {
-        // console.log("There's nothing there")
         appleAbove = false;
         appleToTheRight = false;
         appleBelow = false;
         appleToTheLeft = false;
     }
 }
-
-// function checkForTail() {
-//     if (snake > 19 && squares[snake - 20].classList[1] === "green") {
-//         tailAbove = true;
-//         console.log("My tail is above my head!")
-//         tailRight = false;
-//         tailBelow = false;
-//         tailLeft = false;
-//         return;
-//     } else if (snake < 399 && squares[snake + 1].classList[1] === "green") {
-//         tailRight = true;
-//         console.log("My tail is to the right!")
-//         tailAbove = false;
-//         tailBelow = false;
-//         tailLeft = false;
-//         return;
-//     } else if (snake < 380 && squares[snake + 20].classList[1] === "green") {
-//         tailBelow = true;
-//         console.log("My tail is below me!")
-//         tailAbove = false;
-//         tailRight = false;
-//         tailLeft = false;
-//         return;
-//     } else if (snake > 0 && squares[snake - 1].classList[1] === "green") {
-//         tailLeft = true;
-//         console.log("My tail is to the left!")
-//         tailAbove = false;
-//         tailRight = false;
-//         tailBelow = false;
-//         return;
-//     } else {
-//         // console.log("There's nothing there")
-//         tailAbove = false;
-//         tailRight = false;
-//         tailBelow = false;
-//         tailLeft = false;
-//     }
-// }
 
 function checkForTail() {
     tailAbove = false;
@@ -347,60 +290,6 @@ function MoveLeft() {
     }
 }
 
-// function tailMoveUp() {
-//     squares[tail[0]].classList.remove('green');
-//     for (let i = 1; i < tail.length; i++) {
-//         squares[tail[i]].classList.remove('green');
-//         tail[i] -= 20;
-//         // console.log(tail[i]);
-//         squares[tail[i]].classList.add('green');
-
-//     }
-//     tail[0] = snake;
-//     // console.log(tail[0]);
-//     squares[tail[0]].classList.add('green');
-// }
-// function tailMoveRight() {
-//     squares[tail[0]].classList.remove('green');
-//     for (let i = 1; i < tail.length; i++) {
-//         squares[tail[i]].classList.remove('green');
-//         tail[i] += 1;
-//         // console.log(tail[i]);
-//         squares[tail[i]].classList.add('green');
-
-//     }
-//     tail[0] = snake;
-//     // console.log(tail[0]);
-//     squares[tail[0]].classList.add('green');
-// }
-// function tailMoveDown() {
-//     squares[tail[0]].classList.remove('green');
-//     for (let i = 1; i < tail.length; i++) {
-//         squares[tail[i]].classList.remove('green');
-//         tail[i] += 20;
-//         // console.log(tail[i]);
-//         squares[tail[i]].classList.add('green');
-
-//     }
-//     tail[0] = snake;
-//     // console.log(tail[0]);
-//     squares[tail[0]].classList.add('green');
-// }
-// function tailMoveLeft() {
-//     squares[tail[0]].classList.remove('green');
-//     for (let i = 1; i < tail.length; i++) {
-//         squares[tail[i]].classList.remove('green');
-//         tail[i] -= 1;
-//         // console.log(tail[i]);
-//         squares[tail[i]].classList.add('green');
-
-//     }
-//     tail[0] = snake;
-//     // console.log(tail[0]);
-//     squares[tail[0]].classList.add('green');
-// }
-
-// saving original tailMove function just in case
 function tailMove() {
     squares[tail[0]].classList.remove('green');
     // console.log(tail.length - 1);
@@ -427,10 +316,6 @@ function tailMove() {
 }
 
 // ***Event Listeners***
-// document.defaultView.addEventListener('onkeydown', function (event) {
-//     console.log("Hello world!");
-// })
-// Original attempt at logging a key press, did not work with 'onkeydown', which is probably older syntax
 
 
 document.addEventListener("keydown", function (event) {
