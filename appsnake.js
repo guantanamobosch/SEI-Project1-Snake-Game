@@ -94,8 +94,13 @@ function resetSnake() {
 
 // called each time the snake eats the apple, it moves the apple to a new location
 function resetApple() {
-    let apple = Math.floor(Math.random() * 400);
-    squares[apple].classList.add('red');
+    apple = Math.floor(Math.random() * 400);
+    if (squares[apple].classList[1] === 'green') {
+        resetApple();
+    } else {
+        squares[apple].classList.add('red');
+        return;
+    }
 }
 
 // this function checks whether the head of the snake is in/on one of the squares around the boundary of the grid and adjusts the failure number accordingly (special conditions for the corners)
