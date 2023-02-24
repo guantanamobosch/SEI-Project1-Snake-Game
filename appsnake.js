@@ -22,6 +22,9 @@ let failureNumber = 0;
 // variables to store the setInterval() for movement so that clearInterval() can be used
 let moveInterval;
 
+// variable to store snake's current movement direction
+let snakeDirection;
+
 // boolean variables for the snake to check for apples
 let appleAbove = false;
 let appleToTheRight = false;
@@ -166,13 +169,13 @@ function checkForTail() {
     tailLeft = false;
     for (let i = 2; i < tail.length; i++) {
         if (snake > 19 && tail[i] === (snake - 20)) {
-            tailAbove = true;
+            return tailAbove = true;
         } else if (snake < 399 && tail[i] === (snake + 1)) {
-            tailRight = true;
+            return tailRight = true;
         } else if (snake < 380 && tail[i] === (snake + 20)) {
-            tailBelow = true;
+            return tailBelow = true;
         } else if (snake > 0 && tail[i] === (snake - 1)) {
-            tailLeft = true;
+            return tailLeft = true;
         } else return;
     }
 }
@@ -182,7 +185,7 @@ function MoveUp() {
     checkBoundary();
     checkForApple();
     checkForTail();
-    if (failureNumber === 1 || failureNumber === 5 || failureNumber === 6) {
+    if (failureNumber === 1 || failureNumber === 5 || failureNumber === 6 || tailAbove === true) {
         clearInterval(moveInterval);
         resetSnake();
         logAndResetScore();
@@ -199,6 +202,7 @@ function MoveUp() {
         snake -= 20;
         // console.log(snake);
         squares[snake].classList.add('green');
+        snakeDirection = "up";
         failureNumber = 0;
         return;
     } else {
@@ -206,6 +210,7 @@ function MoveUp() {
         tailMove();
         snake -= 20;
         squares[snake].classList.add('green');
+        snakeDirection = "up";
         failureNumber = 0;
         return;
     }
@@ -216,7 +221,7 @@ function MoveRight() {
     checkBoundary();
     checkForApple();
     checkForTail();
-    if (failureNumber === 2 || failureNumber === 6 || failureNumber === 7) {
+    if (failureNumber === 2 || failureNumber === 6 || failureNumber === 7 || tailRight === true) {
         clearInterval(moveInterval);
         resetSnake();
         logAndResetScore();
@@ -231,6 +236,7 @@ function MoveRight() {
         tailMove();
         snake += 1;
         squares[snake].classList.add('green');
+        snakeDirection = "right";
         failureNumber = 0;
         return;
     } else {
@@ -238,6 +244,7 @@ function MoveRight() {
         tailMove();
         snake += 1;
         squares[snake].classList.add('green');
+        snakeDirection = "right";
         failureNumber = 0;
         return;
     }
@@ -263,6 +270,7 @@ function MoveDown() {
         tailMove();
         snake += 20;
         squares[snake].classList.add('green');
+        snakeDirection = "down";
         failureNumber = 0;
         return;
     } else {
@@ -270,6 +278,7 @@ function MoveDown() {
         tailMove();
         snake += 20;
         squares[snake].classList.add('green');
+        snakeDirection = "down";
         failureNumber = 0;
         return;
     }
@@ -280,7 +289,7 @@ function MoveLeft() {
     checkBoundary();
     checkForApple();
     checkForTail();
-    if (failureNumber === 4 || failureNumber === 5 || failureNumber === 8) {
+    if (failureNumber === 4 || failureNumber === 5 || failureNumber === 8 || tailLeft === true) {
         clearInterval(moveInterval);
         resetSnake();
         logAndResetScore();
@@ -295,6 +304,7 @@ function MoveLeft() {
         tailMove();
         snake -= 1;
         squares[snake].classList.add('green');
+        snakeDirection = "left";
         failureNumber = 0;
         return;
     } else {
@@ -302,6 +312,7 @@ function MoveLeft() {
         tailMove();
         snake -= 1;
         squares[snake].classList.add('green');
+        snakeDirection = "left";
         failureNumber = 0;
         return;
     }
@@ -339,7 +350,7 @@ function tailMove() {
 document.addEventListener("keydown", function (event) {
     // console.log(failureNumber);
     checkBoundary();
-    clearInterval(moveInterval);
+    // clearInterval(moveInterval);
     if (failureNumber === 5 && (event.key === 'ArrowUp' || event.key === 'ArrowLeft')) {
         resetSnake()
     } else if (failureNumber === 6 && (event.key === 'ArrowUp' || event.key === 'ArrowRight')) {
@@ -356,16 +367,20 @@ document.addEventListener("keydown", function (event) {
         resetSnake()
     } else if (failureNumber === 4 && event.key === 'ArrowLeft' || tailLeft === true && event.key === 'ArrowLeft') {
         resetSnake()
-    } else if (event.key === 'ArrowUp' && squares[snake - 20].classList[1] !== "green") {
+    } else if (event.key === 'ArrowUp' && snakeDirection !== "down") {
+        clearInterval(moveInterval);
         moveInterval = setInterval(MoveUp, 75);
         // MoveUp();
-    } else if (event.key === 'ArrowRight' && squares[snake + 1].classList[1] !== "green") {
+    } else if (event.key === 'ArrowRight' && snakeDirection !== "left") {
+        clearInterval(moveInterval);
         moveInterval = setInterval(MoveRight, 75);
         // MoveRight();
-    } else if (event.key === 'ArrowDown' && squares[snake + 20].classList[1] !== "green") {
+    } else if (event.key === 'ArrowDown' && snakeDirection !== "up") {
+        clearInterval(moveInterval);
         moveInterval = setInterval(MoveDown, 75);
         // MoveDown();
-    } else if (event.key === 'ArrowLeft' && squares[snake - 1].classList[1] !== "green") {
+    } else if (event.key === 'ArrowLeft' && snakeDirection !== "right") {
+        clearInterval(moveInterval);
         moveInterval = setInterval(MoveLeft, 75);
         // MoveLeft();
     }
