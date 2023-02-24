@@ -345,7 +345,7 @@ function tailMove() {
 
 // ***Event Listeners***
 
-
+// this event listener only fires off if the keypress is an arrow key, only if the arrow key is not opposite to the snake's current direction, and only if the player did not have a game over within the last second
 document.addEventListener("keydown", function (event) {
     // console.log(failureNumber);
     if (event.key === 'ArrowUp' && snakeDirection !== "down" && failureNumber !== 9) {
