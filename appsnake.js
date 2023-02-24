@@ -56,6 +56,16 @@ for (let i = 0; i < 381; i += 20) {
 
 // ***Functions***
 
+// this function sets a new high score if you beat the current high score, and resets current score
+function logAndResetScore() {
+    if (currentScore > highestScore) {
+        highestScore = currentScore;
+    }
+    highScoreHTML.innerHTML = highestScore;
+    currentScore = 0;
+    yourScoreHTML.innerHTML = currentScore;
+}
+
 // apple always starts in the same place, squares[214] to start, makes it red
 function appleStartingPoint(apple) {
     squares[apple].classList.add('red');
@@ -175,12 +185,7 @@ function MoveUp() {
     if (failureNumber === 1 || failureNumber === 5 || failureNumber === 6) {
         clearInterval(moveInterval);
         resetSnake();
-        if (currentScore > highestScore) {
-            highestScore = currentScore;
-        }
-        highScoreHTML.innerHTML = highestScore;
-        currentScore = 0;
-        yourScoreHTML.innerHTML = currentScore;
+        logAndResetScore();
         return;
     } else if (appleAbove === true) {
         squares[snake - 20].classList.remove('red');
@@ -214,12 +219,7 @@ function MoveRight() {
     if (failureNumber === 2 || failureNumber === 6 || failureNumber === 7) {
         clearInterval(moveInterval);
         resetSnake();
-        if (currentScore > highestScore) {
-            highestScore = currentScore;
-        }
-        highScoreHTML.innerHTML = highestScore;
-        currentScore = 0;
-        yourScoreHTML.innerHTML = currentScore;
+        logAndResetScore();
         return;
     } else if (appleToTheRight === true) {
         squares[snake + 1].classList.remove('red');
@@ -251,12 +251,7 @@ function MoveDown() {
     if (failureNumber === 3 || failureNumber === 7 || failureNumber === 8 || tailBelow === true) {
         clearInterval(moveInterval);
         resetSnake();
-        if (currentScore > highestScore) {
-            highestScore = currentScore;
-        }
-        highScoreHTML.innerHTML = highestScore;
-        currentScore = 0;
-        yourScoreHTML.innerHTML = currentScore;
+        logAndResetScore();
         return;
     } else if (appleBelow === true) {
         squares[snake + 20].classList.remove('red');
@@ -288,12 +283,7 @@ function MoveLeft() {
     if (failureNumber === 4 || failureNumber === 5 || failureNumber === 8) {
         clearInterval(moveInterval);
         resetSnake();
-        if (currentScore > highestScore) {
-            highestScore = currentScore;
-        }
-        highScoreHTML.innerHTML = highestScore;
-        currentScore = 0;
-        yourScoreHTML.innerHTML = currentScore;
+        logAndResetScore();
         return;
     } else if (appleToTheLeft === true) {
         squares[snake - 1].classList.remove('red');
