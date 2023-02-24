@@ -60,6 +60,14 @@ for (let i = 0; i < 381; i += 20) {
 // ***Functions***
 
 
+function eat() {
+    resetApple();
+    tail.push(tail[tail.length - 1])
+    currentScore++;
+    yourScoreHTML.innerHTML = currentScore;
+}
+
+// This function clears the move interval, sets the failurenumber to 9 to prevent movement in the time between game over and game restart (due to the conditionals in the event listener code block, and displays a message in the window that says "ow!"), then sets a timeout for the reset function
 function loseGame() {
     clearInterval(moveInterval);
     failureNumber = 9;
@@ -201,10 +209,7 @@ function MoveUp() {
         return;
     } else if (appleAbove === true) {
         squares[snake - 20].classList.remove('red');
-        resetApple();
-        tail.push(tail[tail.length - 1])
-        currentScore++;
-        yourScoreHTML.innerHTML = currentScore;
+        eat();
         squares[snake].classList.remove('green');
         tailMove();
         // console.log(snake);
@@ -235,10 +240,7 @@ function MoveRight() {
         return;
     } else if (appleToTheRight === true) {
         squares[snake + 1].classList.remove('red');
-        resetApple();
-        tail.push(tail[tail.length - 1])
-        currentScore++;
-        yourScoreHTML.innerHTML = currentScore;
+        eat();
         squares[snake].classList.remove('green');
         tailMove();
         snake += 1;
@@ -267,10 +269,7 @@ function MoveDown() {
         return;
     } else if (appleBelow === true) {
         squares[snake + 20].classList.remove('red');
-        resetApple();
-        tail.push(tail[tail.length - 1])
-        currentScore++;
-        yourScoreHTML.innerHTML = currentScore;
+        eat();
         squares[snake].classList.remove('green');
         tailMove();
         snake += 20;
@@ -299,10 +298,7 @@ function MoveLeft() {
         return;
     } else if (appleToTheLeft === true) {
         squares[snake - 1].classList.remove('red');
-        resetApple();
-        tail.push(tail[tail.length - 1])
-        currentScore++;
-        yourScoreHTML.innerHTML = currentScore;
+        eat();
         squares[snake].classList.remove('green');
         tailMove();
         snake -= 1;
