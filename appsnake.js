@@ -23,7 +23,7 @@ let failureNumber = 0;
 let moveInterval;
 
 // variable to store snake's current movement direction
-let snakeDirection;
+let snakeDirection = "right";
 
 // boolean variables for the snake to check for apples
 let appleAbove = false;
@@ -100,6 +100,7 @@ function resetSnake() {
     tail[0] = 204;
     tail[1] = 203;
     apple = 214;
+    snakeDirection = "right";
     // makes the initial snake/tail and apples values green and red respectively
     snakeStartingPoint(snake);
     appleStartingPoint(apple);
@@ -176,8 +177,9 @@ function checkForTail() {
             return tailBelow = true;
         } else if (snake > 0 && tail[i] === (snake - 1)) {
             return tailLeft = true;
-        } else return;
+        } else continue;
     }
+    return;
 }
 
 // this function checks boundaries, apple proximity, and conducts movement upwards accordingly
