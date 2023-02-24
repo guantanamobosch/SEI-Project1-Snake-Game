@@ -88,10 +88,20 @@ li {
 #yourscorenumber {
     position: relative;
     top: 70px;
-    left: 200px;
+    left: 215px;
     font-size: 3em;
     color: #faf3e9;
     text-shadow: 2px 2px #6cabff;
+    width: 50%;
+}
+
+#youlose {
+    position: relative;
+    top: 50px;
+    left: 170px;
+    font-size: 4em;
+    color: #ff0000;
+    text-shadow: 2px 2px #f9fbfe;
     width: 50%;
 }
 

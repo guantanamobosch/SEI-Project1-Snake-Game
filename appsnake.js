@@ -59,6 +59,14 @@ for (let i = 0; i < 381; i += 20) {
 
 // ***Functions***
 
+
+function loseGame() {
+    clearInterval(moveInterval);
+    failureNumber = 9;
+    yourScoreHTML.innerHTML = "OW!"
+    document.getElementById('yourscorenumber').id = 'youlose';
+    setTimeout(resetSnake, 1000);
+}
 // this function sets a new high score if you beat the current high score, and resets current score
 function logAndResetScore() {
     if (currentScore > highestScore) {
@@ -67,6 +75,7 @@ function logAndResetScore() {
     highScoreHTML.innerHTML = highestScore;
     currentScore = 0;
     yourScoreHTML.innerHTML = currentScore;
+    document.getElementById('youlose').id = 'yourscorenumber'
 }
 
 // apple always starts in the same place, squares[214] to start, makes it red
@@ -188,8 +197,7 @@ function MoveUp() {
     checkForApple();
     checkForTail();
     if (failureNumber === 1 || failureNumber === 5 || failureNumber === 6 || tailAbove === true) {
-        clearInterval(moveInterval);
-        resetSnake();
+        loseGame();
         return;
     } else if (appleAbove === true) {
         squares[snake - 20].classList.remove('red');
@@ -223,8 +231,7 @@ function MoveRight() {
     checkForApple();
     checkForTail();
     if (failureNumber === 2 || failureNumber === 6 || failureNumber === 7 || tailRight === true) {
-        clearInterval(moveInterval);
-        resetSnake();
+        loseGame();
         return;
     } else if (appleToTheRight === true) {
         squares[snake + 1].classList.remove('red');
@@ -256,8 +263,7 @@ function MoveDown() {
     checkForApple();
     checkForTail();
     if (failureNumber === 3 || failureNumber === 7 || failureNumber === 8 || tailBelow === true) {
-        clearInterval(moveInterval);
-        resetSnake();
+        loseGame();
         return;
     } else if (appleBelow === true) {
         squares[snake + 20].classList.remove('red');
@@ -289,8 +295,7 @@ function MoveLeft() {
     checkForApple();
     checkForTail();
     if (failureNumber === 4 || failureNumber === 5 || failureNumber === 8 || tailLeft === true) {
-        clearInterval(moveInterval);
-        resetSnake();
+        loseGame();
         return;
     } else if (appleToTheLeft === true) {
         squares[snake - 1].classList.remove('red');
@@ -347,20 +352,19 @@ function tailMove() {
 
 document.addEventListener("keydown", function (event) {
     // console.log(failureNumber);
-    checkBoundary();
-    if (event.key === 'ArrowUp' && snakeDirection !== "down") {
+    if (event.key === 'ArrowUp' && snakeDirection !== "down" && failureNumber !== 9) {
         clearInterval(moveInterval);
         moveInterval = setInterval(MoveUp, 75);
         // MoveUp();
-    } else if (event.key === 'ArrowRight' && snakeDirection !== "left") {
+    } else if (event.key === 'ArrowRight' && snakeDirection !== "left" && failureNumber !== 9) {
         clearInterval(moveInterval);
         moveInterval = setInterval(MoveRight, 75);
         // MoveRight();
-    } else if (event.key === 'ArrowDown' && snakeDirection !== "up") {
+    } else if (event.key === 'ArrowDown' && snakeDirection !== "up" && failureNumber !== 9) {
         clearInterval(moveInterval);
         moveInterval = setInterval(MoveDown, 75);
         // MoveDown();
-    } else if (event.key === 'ArrowLeft' && snakeDirection !== "right") {
+    } else if (event.key === 'ArrowLeft' && snakeDirection !== "right" && failureNumber !== 9) {
         clearInterval(moveInterval);
         moveInterval = setInterval(MoveLeft, 75);
         // MoveLeft();
