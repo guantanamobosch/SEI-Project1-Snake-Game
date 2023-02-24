@@ -87,7 +87,6 @@ snakeStartingPoint(snake);
 
 // reset function for lose conditions
 function resetSnake() {
-    console.log("You Lose");
     // remove color from all squares on the grid
     for (let i = 0; i < squares.length; i++) {
         squares[i].classList.remove('green')
@@ -104,6 +103,7 @@ function resetSnake() {
     // makes the initial snake/tail and apples values green and red respectively
     snakeStartingPoint(snake);
     appleStartingPoint(apple);
+    logAndResetScore();
 }
 
 // called each time the snake eats the apple, it moves the apple to a new location
@@ -190,7 +190,6 @@ function MoveUp() {
     if (failureNumber === 1 || failureNumber === 5 || failureNumber === 6 || tailAbove === true) {
         clearInterval(moveInterval);
         resetSnake();
-        logAndResetScore();
         return;
     } else if (appleAbove === true) {
         squares[snake - 20].classList.remove('red');
@@ -226,7 +225,6 @@ function MoveRight() {
     if (failureNumber === 2 || failureNumber === 6 || failureNumber === 7 || tailRight === true) {
         clearInterval(moveInterval);
         resetSnake();
-        logAndResetScore();
         return;
     } else if (appleToTheRight === true) {
         squares[snake + 1].classList.remove('red');
@@ -260,7 +258,6 @@ function MoveDown() {
     if (failureNumber === 3 || failureNumber === 7 || failureNumber === 8 || tailBelow === true) {
         clearInterval(moveInterval);
         resetSnake();
-        logAndResetScore();
         return;
     } else if (appleBelow === true) {
         squares[snake + 20].classList.remove('red');
@@ -294,7 +291,6 @@ function MoveLeft() {
     if (failureNumber === 4 || failureNumber === 5 || failureNumber === 8 || tailLeft === true) {
         clearInterval(moveInterval);
         resetSnake();
-        logAndResetScore();
         return;
     } else if (appleToTheLeft === true) {
         squares[snake - 1].classList.remove('red');
@@ -352,24 +348,7 @@ function tailMove() {
 document.addEventListener("keydown", function (event) {
     // console.log(failureNumber);
     checkBoundary();
-    // clearInterval(moveInterval);
-    if (failureNumber === 5 && (event.key === 'ArrowUp' || event.key === 'ArrowLeft')) {
-        resetSnake()
-    } else if (failureNumber === 6 && (event.key === 'ArrowUp' || event.key === 'ArrowRight')) {
-        resetSnake()
-    } else if (failureNumber === 7 && (event.key === 'ArrowRight' || event.key === 'ArrowDown')) {
-        resetSnake()
-    } else if (failureNumber === 8 && (event.key === 'ArrowDown' || event.key === 'ArrowLeft')) {
-        resetSnake()
-    } else if (failureNumber === 1 && event.key === 'ArrowUp' || tailAbove === true && event.key === 'ArrowUp') {
-        resetSnake()
-    } else if (failureNumber === 2 && event.key === 'ArrowRight' || tailRight === true && event.key === 'ArrowRight') {
-        resetSnake()
-    } else if (failureNumber === 3 && event.key === 'ArrowDown' || tailBelow === true && event.key === 'ArrowDown') {
-        resetSnake()
-    } else if (failureNumber === 4 && event.key === 'ArrowLeft' || tailLeft === true && event.key === 'ArrowLeft') {
-        resetSnake()
-    } else if (event.key === 'ArrowUp' && snakeDirection !== "down") {
+    if (event.key === 'ArrowUp' && snakeDirection !== "down") {
         clearInterval(moveInterval);
         moveInterval = setInterval(MoveUp, 75);
         // MoveUp();
