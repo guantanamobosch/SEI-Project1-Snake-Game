@@ -40,7 +40,7 @@ const rightBoundaryFailConditions = [];
 const bottomBoundaryFailConditions = [];
 const leftBoundaryFailConditions = [];
 
-// for loops to populate fail condition arrays
+// for loops to populate fail condition arrays with the boundary indices
 for (let i = 0; i < 20; i++) {
     topBoundaryFailConditions.push(i);
 }
@@ -56,11 +56,13 @@ for (let i = 0; i < 381; i += 20) {
 
 // ***Functions***
 
+// apple always starts in the same place, squares[214] to start, makes it red
 function appleStartingPoint(apple) {
     squares[apple].classList.add('red');
 }
 appleStartingPoint(apple);
 
+// makes the respective squares of the snake's head and tail green upon startup
 function snakeStartingPoint(snake) {
     squares[snake].classList.add('green');
     for (let i = 0; i < tail.length; i++) {
@@ -70,27 +72,33 @@ function snakeStartingPoint(snake) {
 }
 snakeStartingPoint(snake);
 
+// reset function for lose conditions
 function resetSnake() {
     console.log("You Lose");
+    // remove color from all squares on the grid
     for (let i = 0; i < squares.length; i++) {
         squares[i].classList.remove('green')
         squares[i].classList.remove('red')
     }
+    // remove all array elements from the snake's tail except 2 at indices 0, 1
     tail.splice(2, (tail.length - 2));
+    // initial values for snake, tail, and apple
     snake = 205;
     tail[0] = 204;
     tail[1] = 203;
     apple = 214;
+    // makes the initial snake/tail and apples values green and red respectively
     snakeStartingPoint(snake);
     appleStartingPoint(apple);
 }
 
+// called each time the snake eats the apple, it moves the apple to a new location
 function resetApple() {
-    console.log("Yum yum!");
     let apple = Math.floor(Math.random() * 400);
     squares[apple].classList.add('red');
 }
 
+// this function checks whether the head of the snake is in/on one of the squares around the boundary of the grid and adjusts the failure number accordingly (special conditions for the corners)
 function checkBoundary() {
     for (let i = 0; i < rightBoundaryFailConditions.length; i++) {
         if (snake === topBoundaryFailConditions[0]) {
@@ -113,6 +121,7 @@ function checkBoundary() {
     }
 }
 
+// this function checks adjacent squares (above, below, to the left or right of) the snake's head for whether they are red and adjusts global boleans if they are
 function checkForApple() {
     if (snake > 19 && squares[snake - 20].classList[1] === "red") {
         appleAbove = true;
@@ -134,6 +143,7 @@ function checkForApple() {
     }
 }
 
+// this function sets global booleans to false before it loops through indices of the tail array after the first two items (impossible for snake head to hit those anyway) and sets global booleans depending on whether the tail is adjacent to the snake's head or not
 function checkForTail() {
     tailAbove = false;
     tailRight = false;
@@ -152,6 +162,7 @@ function checkForTail() {
     }
 }
 
+// this function checks boundaries, apple proximity, and conducts movement upwards accordingly
 function MoveUp() {
     checkBoundary();
     checkForApple();
@@ -190,6 +201,7 @@ function MoveUp() {
     }
 }
 
+// this function checks boundaries, apple proximity, and conducts movement to the right accordingly
 function MoveRight() {
     checkBoundary();
     checkForApple();
@@ -226,6 +238,7 @@ function MoveRight() {
     }
 }
 
+// this function checks boundaries, apple proximity, and conducts movement downwards accordingly
 function MoveDown() {
     checkBoundary();
     checkForApple();
@@ -262,6 +275,7 @@ function MoveDown() {
     }
 }
 
+// this function checks boundaries, apple proximity, and conducts movement to the left accordingly
 function MoveLeft() {
     checkBoundary();
     checkForApple();
@@ -298,6 +312,7 @@ function MoveLeft() {
     }
 }
 
+// this function makes the tail follow the head and is called in each movement function above
 function tailMove() {
     squares[tail[0]].classList.remove('green');
     // console.log(tail.length - 1);
