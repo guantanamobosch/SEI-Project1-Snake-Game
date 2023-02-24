@@ -3,30 +3,38 @@
 // let's store the squares in some variables
 const squares = document.querySelectorAll('.square');
 
+// variables storing the array index for the squares which represent the snake and the apple
 let snake = 205;
 let tail = [204, 203];
 let apple = 214;
 
+// pulling the HTML elements where the scores will be displayed into variables
 let yourScoreHTML = document.getElementById('yourscorenumber');
 let highScoreHTML = document.getElementById('highscorenumber');
+
+// score variables
 let currentScore = 0;
 let highestScore = 0;
 
+// a variable to store different numbers which represent different fail conditions (1-4 are the sides of the grid, 5-8 are the corners)
 let failureNumber = 0;
+
+// variables to store the setInterval() for movement so that clearInterval() can be used
 let moveInterval;
 
+// boolean variables for the snake to check for apples
 let appleAbove = false;
 let appleToTheRight = false;
 let appleBelow = false;
 let appleToTheLeft = false;
 
-
-// fail condition arrays
+// boolean variables for the snake to check for its tail
 let tailAbove = false;
 let tailRight = false;
 let tailBelow = false;
 let tailLeft = false;
 
+// fail condition arrays to hold the indices of the grid squares at the boundary
 const topBoundaryFailConditions = [];
 const rightBoundaryFailConditions = [];
 const bottomBoundaryFailConditions = [];

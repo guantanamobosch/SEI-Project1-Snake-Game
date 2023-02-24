@@ -9,3 +9,7 @@ I want the snake hitting the walls to be a lose condition, and I would like ther
 I want the snake to move continuously upon each press of an arrow key, until either the snake is redirected or meets a lose condition.
 
 I want to be able to adjust the speed of the snake. -->
+
+<!-- *Some notes on Snake's History* -->
+
+<!-- The first snake (or snake-like) game was designed by Lane Hauck, Ago Kiss, and Bob Pecarero, developed by Gremlin (before its acquisition by Sega in 1978), and released in 1976 as an arcade cabinet. -->
