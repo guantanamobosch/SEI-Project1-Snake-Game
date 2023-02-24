@@ -23,7 +23,7 @@ let failureNumber = 0;
 let moveInterval;
 
 // variable to store snake's current movement direction
-let snakeDirection = "right";
+let snakeDirection = "rightstart";
 
 // boolean variables for the snake to check for apples
 let appleAbove = false;
@@ -70,7 +70,6 @@ function eat() {
 // This function clears the move interval, sets the failurenumber to 9 to prevent movement in the time between game over and game restart (due to the conditionals in the event listener code block, and displays a message in the window that says "ow!"), then sets a timeout for the reset function
 function loseGame() {
     clearInterval(moveInterval);
-    failureNumber = 9;
     yourScoreHTML.innerHTML = "OW!"
     document.getElementById('yourscorenumber').id = 'youlose';
     setTimeout(resetSnake, 1000);
@@ -116,7 +115,7 @@ function resetSnake() {
     tail[0] = 204;
     tail[1] = 203;
     apple = 214;
-    snakeDirection = "right";
+    snakeDirection = "rightstart";
     // makes the initial snake/tail and apples values green and red respectively
     snakeStartingPoint(snake);
     appleStartingPoint(apple);
@@ -199,132 +198,35 @@ function checkForTail() {
     return;
 }
 
-// this function checks boundaries, apple proximity, and conducts movement upwards accordingly
-function MoveUp() {
-    checkBoundary();
-    checkForApple();
-    checkForTail();
-    if (failureNumber === 1 || failureNumber === 5 || failureNumber === 6 || tailAbove === true) {
-        loseGame();
-        return;
-    } else if (appleAbove === true) {
-        squares[snake - 20].classList.remove('red');
-        eat();
-        squares[snake].classList.remove('green');
-        tailMove();
-        // console.log(snake);
-        snake -= 20;
-        // console.log(snake);
-        squares[snake].classList.add('green');
-        snakeDirection = "up";
-        failureNumber = 0;
-        return;
-    } else {
-        squares[snake].classList.remove('green');
-        tailMove();
-        snake -= 20;
-        squares[snake].classList.add('green');
-        snakeDirection = "up";
-        failureNumber = 0;
-        return;
-    }
+function upMove() {
+    snake -= 20;
+    squares[snake].classList.add('green');
+    snakeDirection = "up";
 }
 
-// this function checks boundaries, apple proximity, and conducts movement to the right accordingly
-function MoveRight() {
-    checkBoundary();
-    checkForApple();
-    checkForTail();
-    if (failureNumber === 2 || failureNumber === 6 || failureNumber === 7 || tailRight === true) {
-        loseGame();
-        return;
-    } else if (appleToTheRight === true) {
-        squares[snake + 1].classList.remove('red');
-        eat();
-        squares[snake].classList.remove('green');
-        tailMove();
-        snake += 1;
-        squares[snake].classList.add('green');
-        snakeDirection = "right";
-        failureNumber = 0;
-        return;
-    } else {
-        squares[snake].classList.remove('green');
-        tailMove();
-        snake += 1;
-        squares[snake].classList.add('green');
-        snakeDirection = "right";
-        failureNumber = 0;
-        return;
-    }
+function rightMove() {
+    snake += 1;
+    squares[snake].classList.add('green');
+    snakeDirection = "right";
 }
 
-// this function checks boundaries, apple proximity, and conducts movement downwards accordingly
-function MoveDown() {
-    checkBoundary();
-    checkForApple();
-    checkForTail();
-    if (failureNumber === 3 || failureNumber === 7 || failureNumber === 8 || tailBelow === true) {
-        loseGame();
-        return;
-    } else if (appleBelow === true) {
-        squares[snake + 20].classList.remove('red');
-        eat();
-        squares[snake].classList.remove('green');
-        tailMove();
-        snake += 20;
-        squares[snake].classList.add('green');
-        snakeDirection = "down";
-        failureNumber = 0;
-        return;
-    } else {
-        squares[snake].classList.remove('green');
-        tailMove();
-        snake += 20;
-        squares[snake].classList.add('green');
-        snakeDirection = "down";
-        failureNumber = 0;
-        return;
-    }
+function downMove() {
+    snake += 20;
+    squares[snake].classList.add('green');
+    snakeDirection = "down";
 }
 
-// this function checks boundaries, apple proximity, and conducts movement to the left accordingly
-function MoveLeft() {
-    checkBoundary();
-    checkForApple();
-    checkForTail();
-    if (failureNumber === 4 || failureNumber === 5 || failureNumber === 8 || tailLeft === true) {
-        loseGame();
-        return;
-    } else if (appleToTheLeft === true) {
-        squares[snake - 1].classList.remove('red');
-        eat();
-        squares[snake].classList.remove('green');
-        tailMove();
-        snake -= 1;
-        squares[snake].classList.add('green');
-        snakeDirection = "left";
-        failureNumber = 0;
-        return;
-    } else {
-        squares[snake].classList.remove('green');
-        tailMove();
-        snake -= 1;
-        squares[snake].classList.add('green');
-        snakeDirection = "left";
-        failureNumber = 0;
-        return;
-    }
+function leftMove() {
+    snake -= 1;
+    squares[snake].classList.add('green');
+    snakeDirection = "left";
 }
 
-// this function makes the tail follow the head and is called in each movement function above
+// this function makes the tail follow the head and is called in each movement function
 function tailMove() {
     squares[tail[0]].classList.remove('green');
-    // console.log(tail.length - 1);
     let tailLength = tail.length - 1;
     for (let i = tailLength; i > 0; i--) {
-
-        // console.log(i);
         if (i === tailLength) {
             squares[tail[i]].classList.remove('green');
             tail[i] = tail[i - 1];
@@ -335,35 +237,129 @@ function tailMove() {
             squares[tail[i]].classList.add('green');
             continue;
         }
-
-        // console.log(tail[i]);
     }
     tail[0] = snake;
-    // console.log(tail[0]);
     squares[tail[0]].classList.add('green');
 }
+
+// this function checks boundaries, apple proximity, and conducts movement upwards accordingly
+function MoveUp() {
+    checkBoundary();
+    checkForApple();
+    checkForTail();
+    if (failureNumber === 1 || failureNumber === 5 || failureNumber === 6 || tailAbove === true) {
+        failureNumber = 9;
+        loseGame();
+        return;
+    } else if (appleAbove === true) {
+        squares[snake - 20].classList.remove('red');
+        eat();
+        tailMove();
+        upMove();
+        failureNumber = 0;
+        // MoveUp();
+    } else {
+        tailMove();
+        upMove();
+        failureNumber = 0;
+        // MoveUp();
+    }
+}
+
+// this function checks boundaries, apple proximity, and conducts movement to the right accordingly
+function MoveRight() {
+    checkBoundary();
+    checkForApple();
+    checkForTail();
+    if (failureNumber === 2 || failureNumber === 6 || failureNumber === 7 || tailRight === true) {
+        failureNumber = 9;
+        loseGame();
+        return;
+    } else if (appleToTheRight === true) {
+        squares[snake + 1].classList.remove('red');
+        eat();
+        tailMove();
+        rightMove();
+        failureNumber = 0;
+        // MoveRight();
+    } else {
+        tailMove();
+        rightMove();
+        failureNumber = 0;
+        // MoveRight();
+    }
+}
+
+// this function checks boundaries, apple proximity, and conducts movement downwards accordingly
+function MoveDown() {
+    checkBoundary();
+    checkForApple();
+    checkForTail();
+    if (failureNumber === 3 || failureNumber === 7 || failureNumber === 8 || tailBelow === true) {
+        failureNumber = 9;
+        loseGame();
+        return;
+    } else if (appleBelow === true) {
+        squares[snake + 20].classList.remove('red');
+        eat();
+        tailMove();
+        downMove();
+        failureNumber = 0;
+        // MoveDown();
+    } else {
+        tailMove();
+        downMove();
+        failureNumber = 0;
+        // MoveDown();
+    }
+}
+
+// this function checks boundaries, apple proximity, and conducts movement to the left accordingly
+function MoveLeft() {
+    checkBoundary();
+    checkForApple();
+    checkForTail();
+    if (failureNumber === 4 || failureNumber === 5 || failureNumber === 8 || tailLeft === true) {
+        failureNumber = 9;
+        loseGame();
+        return;
+    } else if (appleToTheLeft === true) {
+        squares[snake - 1].classList.remove('red');
+        eat();
+        tailMove();
+        leftMove();
+        failureNumber = 0;
+        // MoveLeft();
+    } else {
+        tailMove();
+        leftMove();
+        failureNumber = 0;
+        // MoveLeft();
+    }
+}
+
+
 
 // ***Event Listeners***
 
 // this event listener only fires off if the keypress is an arrow key, only if the arrow key is not opposite to the snake's current direction, and only if the player did not have a game over within the last second
 document.addEventListener("keydown", function (event) {
     // console.log(failureNumber);
-    if (event.key === 'ArrowUp' && snakeDirection !== "down" && failureNumber !== 9) {
-        clearInterval(moveInterval);
-        moveInterval = setInterval(MoveUp, 75);
-        // MoveUp();
-    } else if (event.key === 'ArrowRight' && snakeDirection !== "left" && failureNumber !== 9) {
-        clearInterval(moveInterval);
-        moveInterval = setInterval(MoveRight, 75);
+    if (failureNumber !== 9 && event.key === 'ArrowUp' && snakeDirection !== "down" && snakeDirection !== "up") {
+        clearInterval(moveInterval)
+        moveInterval = setInterval(MoveUp, 100);
+    } else if (failureNumber !== 9 && event.key === 'ArrowRight' && snakeDirection !== "left")
+    // && snakeDirection !== "right") 
+    {
+        clearInterval(moveInterval)
+        moveInterval = setInterval(MoveRight, 100);
         // MoveRight();
-    } else if (event.key === 'ArrowDown' && snakeDirection !== "up" && failureNumber !== 9) {
-        clearInterval(moveInterval);
-        moveInterval = setInterval(MoveDown, 75);
-        // MoveDown();
-    } else if (event.key === 'ArrowLeft' && snakeDirection !== "right" && failureNumber !== 9) {
-        clearInterval(moveInterval);
-        moveInterval = setInterval(MoveLeft, 75);
-        // MoveLeft();
+    } else if (failureNumber !== 9 && event.key === 'ArrowDown' && snakeDirection !== "up" && snakeDirection !== "down") {
+        clearInterval(moveInterval)
+        moveInterval = setInterval(MoveDown, 100);
+    } else if (failureNumber !== 9 && event.key === 'ArrowLeft' && snakeDirection !== "right" && snakeDirection !== "left" && snakeDirection !== "rightstart") {
+        clearInterval(moveInterval)
+        moveInterval = setInterval(MoveLeft, 100);
     }
     checkForApple();
     checkForTail();
