@@ -261,20 +261,20 @@ function MoveUp() {
         loseGame();
         return;
     } else if (appleAbove === true) {
-        resetApple();
+        setTimeout(resetApple, 60);
         eat();
-        timeoutIntervalOne = setTimeout(tailMove, 25);
-        timeoutIntervalTwo = setTimeout(upMove, 50);
+        timeoutIntervalOne = setTimeout(tailMove, 10);
+        timeoutIntervalTwo = setTimeout(upMove, 20);
         setTimeout(() => {
-            squares[snake - 20].classList.remove('red');
-        }, 49);
+            squares[snake].classList.remove('red');
+        }, 25);
         failureNumber = 0;
-        timeoutIntervalThree = setTimeout(MoveUp, 75);
+        timeoutIntervalThree = setTimeout(MoveUp, 30);
     } else {
-        timeoutIntervalOne = setTimeout(tailMove, 25);
-        timeoutIntervalTwo = setTimeout(upMove, 50);
+        timeoutIntervalOne = setTimeout(tailMove, 10);
+        timeoutIntervalTwo = setTimeout(upMove, 20);
         failureNumber = 0;
-        timeoutIntervalThree = setTimeout(MoveUp, 75);
+        timeoutIntervalThree = setTimeout(MoveUp, 30);
     }
 }
 
@@ -289,20 +289,20 @@ function MoveRight() {
         loseGame();
         return;
     } else if (appleToTheRight === true) {
-        resetApple();
+        setTimeout(resetApple, 60);
         eat();
-        timeoutIntervalOne = setTimeout(tailMove, 25);
-        timeoutIntervalTwo = setTimeout(rightMove, 50);
+        timeoutIntervalOne = setTimeout(tailMove, 10);
+        timeoutIntervalTwo = setTimeout(rightMove, 20);
         setTimeout(() => {
-            squares[snake + 1].classList.remove('red');
-        }, 49);
+            squares[snake].classList.remove('red');
+        }, 25);
         failureNumber = 0;
-        timeoutIntervalThree = setTimeout(MoveRight, 75);
+        timeoutIntervalThree = setTimeout(MoveRight, 30);
     } else {
-        timeoutIntervalOne = setTimeout(tailMove, 25);
-        timeoutIntervalTwo = setTimeout(rightMove, 50);
+        timeoutIntervalOne = setTimeout(tailMove, 10);
+        timeoutIntervalTwo = setTimeout(rightMove, 20);
         failureNumber = 0;
-        timeoutIntervalThree = setTimeout(MoveRight, 75);
+        timeoutIntervalThree = setTimeout(MoveRight, 30);
     }
 }
 
@@ -317,20 +317,20 @@ function MoveDown() {
         loseGame();
         return;
     } else if (appleBelow === true) {
-        resetApple();
+        setTimeout(resetApple, 60);
         eat();
-        timeoutIntervalOne = setTimeout(tailMove, 25);
-        timeoutIntervalTwo = setTimeout(downMove, 50);
+        timeoutIntervalOne = setTimeout(tailMove, 10);
+        timeoutIntervalTwo = setTimeout(downMove, 20);
         setTimeout(() => {
-            squares[snake + 20].classList.remove('red');
-        }, 49);
+            squares[snake].classList.remove('red');
+        }, 25);
         failureNumber = 0;
-        timeoutIntervalThree = setTimeout(MoveDown, 75);
+        timeoutIntervalThree = setTimeout(MoveDown, 30);
     } else {
-        timeoutIntervalOne = setTimeout(tailMove, 25);
-        timeoutIntervalTwo = setTimeout(downMove, 50);
+        timeoutIntervalOne = setTimeout(tailMove, 10);
+        timeoutIntervalTwo = setTimeout(downMove, 20);
         failureNumber = 0;
-        timeoutIntervalThree = setTimeout(MoveDown, 75);
+        timeoutIntervalThree = setTimeout(MoveDown, 30);
     }
 }
 
@@ -345,20 +345,20 @@ function MoveLeft() {
         loseGame();
         return;
     } else if (appleToTheLeft === true) {
-        resetApple();
+        setTimeout(resetApple, 60);
         eat();
-        timeoutIntervalOne = setTimeout(tailMove, 25);
-        timeoutIntervalTwo = setTimeout(leftMove, 50);
+        timeoutIntervalOne = setTimeout(tailMove, 10);
+        timeoutIntervalTwo = setTimeout(leftMove, 20);
         setTimeout(() => {
-            squares[snake - 1].classList.remove('red');
-        }, 49);
+            squares[snake].classList.remove('red');
+        }, 25);
         failureNumber = 0;
-        timeoutIntervalThree = setTimeout(MoveLeft, 75);
+        timeoutIntervalThree = setTimeout(MoveLeft, 30);
     } else {
-        timeoutIntervalOne = setTimeout(tailMove, 25);
-        timeoutIntervalTwo = setTimeout(leftMove, 50);
+        timeoutIntervalOne = setTimeout(tailMove, 10);
+        timeoutIntervalTwo = setTimeout(leftMove, 20);
         failureNumber = 0;
-        timeoutIntervalThree = setTimeout(MoveLeft, 75);
+        timeoutIntervalThree = setTimeout(MoveLeft, 30);
     }
 }
 
