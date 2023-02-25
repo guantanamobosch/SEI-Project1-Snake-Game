@@ -24,6 +24,7 @@ let moveInterval;
 let timeoutIntervalOne;
 let timeoutIntervalTwo;
 let timeoutIntervalThree;
+let timeoutIntervalFour;
 
 // variable to store snake's current movement direction
 let snakeDirection = "rightstart";
@@ -139,6 +140,7 @@ function resetTimeouts() {
     clearTimeout(timeoutIntervalOne);
     clearTimeout(timeoutIntervalTwo);
     clearTimeout(timeoutIntervalThree);
+    clearTimeout(timeoutIntervalFour);
 }
 
 // this function checks whether the head of the snake is in/on one of the squares around the boundary of the grid and adjusts the failure number accordingly (special conditions for the corners)
@@ -208,24 +210,28 @@ function checkForTail() {
 
 function upMove() {
     snake -= 20;
+    squares[snake].classList.remove('red');
     squares[snake].classList.add('green');
     snakeDirection = "up";
 }
 
 function rightMove() {
     snake += 1;
+    squares[snake].classList.remove('red');
     squares[snake].classList.add('green');
     snakeDirection = "right";
 }
 
 function downMove() {
     snake += 20;
+    squares[snake].classList.remove('red');
     squares[snake].classList.add('green');
     snakeDirection = "down";
 }
 
 function leftMove() {
     snake -= 1;
+    squares[snake].classList.remove('red');
     squares[snake].classList.add('green');
     snakeDirection = "left";
 }
@@ -261,20 +267,17 @@ function MoveUp() {
         loseGame();
         return;
     } else if (appleAbove === true) {
-        setTimeout(resetApple, 60);
         eat();
-        timeoutIntervalOne = setTimeout(tailMove, 10);
-        timeoutIntervalTwo = setTimeout(upMove, 20);
-        setTimeout(() => {
-            squares[snake].classList.remove('red');
-        }, 25);
+        timeoutIntervalOne = setTimeout(tailMove, 40);
+        timeoutIntervalTwo = setTimeout(upMove, 50);
+        timeoutIntervalFour = setTimeout(resetApple, 55);
         failureNumber = 0;
-        timeoutIntervalThree = setTimeout(MoveUp, 30);
+        timeoutIntervalThree = setTimeout(MoveUp, 70);
     } else {
-        timeoutIntervalOne = setTimeout(tailMove, 10);
-        timeoutIntervalTwo = setTimeout(upMove, 20);
+        timeoutIntervalOne = setTimeout(tailMove, 40);
+        timeoutIntervalTwo = setTimeout(upMove, 50);
         failureNumber = 0;
-        timeoutIntervalThree = setTimeout(MoveUp, 30);
+        timeoutIntervalThree = setTimeout(MoveUp, 70);
     }
 }
 
@@ -289,20 +292,17 @@ function MoveRight() {
         loseGame();
         return;
     } else if (appleToTheRight === true) {
-        setTimeout(resetApple, 60);
         eat();
-        timeoutIntervalOne = setTimeout(tailMove, 10);
-        timeoutIntervalTwo = setTimeout(rightMove, 20);
-        setTimeout(() => {
-            squares[snake].classList.remove('red');
-        }, 25);
+        timeoutIntervalOne = setTimeout(tailMove, 40);
+        timeoutIntervalTwo = setTimeout(rightMove, 50);
+        timeoutIntervalFour = setTimeout(resetApple, 55);
         failureNumber = 0;
-        timeoutIntervalThree = setTimeout(MoveRight, 30);
+        timeoutIntervalThree = setTimeout(MoveRight, 70);
     } else {
-        timeoutIntervalOne = setTimeout(tailMove, 10);
-        timeoutIntervalTwo = setTimeout(rightMove, 20);
+        timeoutIntervalOne = setTimeout(tailMove, 40);
+        timeoutIntervalTwo = setTimeout(rightMove, 50);
         failureNumber = 0;
-        timeoutIntervalThree = setTimeout(MoveRight, 30);
+        timeoutIntervalThree = setTimeout(MoveRight, 70);
     }
 }
 
@@ -317,20 +317,17 @@ function MoveDown() {
         loseGame();
         return;
     } else if (appleBelow === true) {
-        setTimeout(resetApple, 60);
         eat();
-        timeoutIntervalOne = setTimeout(tailMove, 10);
-        timeoutIntervalTwo = setTimeout(downMove, 20);
-        setTimeout(() => {
-            squares[snake].classList.remove('red');
-        }, 25);
+        timeoutIntervalOne = setTimeout(tailMove, 40);
+        timeoutIntervalTwo = setTimeout(downMove, 50);
+        timeoutIntervalFour = setTimeout(resetApple, 55);
         failureNumber = 0;
-        timeoutIntervalThree = setTimeout(MoveDown, 30);
+        timeoutIntervalThree = setTimeout(MoveDown, 70);
     } else {
-        timeoutIntervalOne = setTimeout(tailMove, 10);
-        timeoutIntervalTwo = setTimeout(downMove, 20);
+        timeoutIntervalOne = setTimeout(tailMove, 40);
+        timeoutIntervalTwo = setTimeout(downMove, 50);
         failureNumber = 0;
-        timeoutIntervalThree = setTimeout(MoveDown, 30);
+        timeoutIntervalThree = setTimeout(MoveDown, 70);
     }
 }
 
@@ -345,20 +342,17 @@ function MoveLeft() {
         loseGame();
         return;
     } else if (appleToTheLeft === true) {
-        setTimeout(resetApple, 60);
         eat();
-        timeoutIntervalOne = setTimeout(tailMove, 10);
-        timeoutIntervalTwo = setTimeout(leftMove, 20);
-        setTimeout(() => {
-            squares[snake].classList.remove('red');
-        }, 25);
+        timeoutIntervalOne = setTimeout(tailMove, 40);
+        timeoutIntervalTwo = setTimeout(leftMove, 50);
+        timeoutIntervalFour = setTimeout(resetApple, 55);
         failureNumber = 0;
-        timeoutIntervalThree = setTimeout(MoveLeft, 30);
+        timeoutIntervalThree = setTimeout(MoveLeft, 70);
     } else {
-        timeoutIntervalOne = setTimeout(tailMove, 10);
-        timeoutIntervalTwo = setTimeout(leftMove, 20);
+        timeoutIntervalOne = setTimeout(tailMove, 40);
+        timeoutIntervalTwo = setTimeout(leftMove, 50);
         failureNumber = 0;
-        timeoutIntervalThree = setTimeout(MoveLeft, 30);
+        timeoutIntervalThree = setTimeout(MoveLeft, 70);
     }
 }
 
