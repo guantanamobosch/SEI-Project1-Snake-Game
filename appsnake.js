@@ -21,6 +21,9 @@ let failureNumber = 0;
 
 // variables to store the setInterval() for movement so that clearInterval() can be used
 let moveInterval;
+let timeoutIntervalOne;
+let timeoutIntervalTwo;
+let timeoutIntervalThree;
 
 // variable to store snake's current movement direction
 let snakeDirection = "rightstart";
@@ -61,7 +64,6 @@ for (let i = 0; i < 381; i += 20) {
 
 
 function eat() {
-    resetApple();
     tail.push(tail[tail.length - 1])
     currentScore++;
     yourScoreHTML.innerHTML = currentScore;
@@ -131,6 +133,12 @@ function resetApple() {
         squares[apple].classList.add('red');
         return;
     }
+}
+
+function resetTimeouts() {
+    clearTimeout(timeoutIntervalOne);
+    clearTimeout(timeoutIntervalTwo);
+    clearTimeout(timeoutIntervalThree);
 }
 
 // this function checks whether the head of the snake is in/on one of the squares around the boundary of the grid and adjusts the failure number accordingly (special conditions for the corners)
@@ -244,6 +252,7 @@ function tailMove() {
 
 // this function checks boundaries, apple proximity, and conducts movement upwards accordingly
 function MoveUp() {
+    resetTimeouts();
     checkBoundary();
     checkForApple();
     checkForTail();
@@ -252,22 +261,26 @@ function MoveUp() {
         loseGame();
         return;
     } else if (appleAbove === true) {
-        squares[snake - 20].classList.remove('red');
+        resetApple();
         eat();
-        tailMove();
-        upMove();
+        timeoutIntervalOne = setTimeout(tailMove, 25);
+        timeoutIntervalTwo = setTimeout(upMove, 50);
+        setTimeout(() => {
+            squares[snake - 20].classList.remove('red');
+        }, 49);
         failureNumber = 0;
-        // MoveUp();
+        timeoutIntervalThree = setTimeout(MoveUp, 75);
     } else {
-        tailMove();
-        upMove();
+        timeoutIntervalOne = setTimeout(tailMove, 25);
+        timeoutIntervalTwo = setTimeout(upMove, 50);
         failureNumber = 0;
-        // MoveUp();
+        timeoutIntervalThree = setTimeout(MoveUp, 75);
     }
 }
 
 // this function checks boundaries, apple proximity, and conducts movement to the right accordingly
 function MoveRight() {
+    resetTimeouts();
     checkBoundary();
     checkForApple();
     checkForTail();
@@ -276,22 +289,26 @@ function MoveRight() {
         loseGame();
         return;
     } else if (appleToTheRight === true) {
-        squares[snake + 1].classList.remove('red');
+        resetApple();
         eat();
-        tailMove();
-        rightMove();
+        timeoutIntervalOne = setTimeout(tailMove, 25);
+        timeoutIntervalTwo = setTimeout(rightMove, 50);
+        setTimeout(() => {
+            squares[snake + 1].classList.remove('red');
+        }, 49);
         failureNumber = 0;
-        // MoveRight();
+        timeoutIntervalThree = setTimeout(MoveRight, 75);
     } else {
-        tailMove();
-        rightMove();
+        timeoutIntervalOne = setTimeout(tailMove, 25);
+        timeoutIntervalTwo = setTimeout(rightMove, 50);
         failureNumber = 0;
-        // MoveRight();
+        timeoutIntervalThree = setTimeout(MoveRight, 75);
     }
 }
 
 // this function checks boundaries, apple proximity, and conducts movement downwards accordingly
 function MoveDown() {
+    resetTimeouts();
     checkBoundary();
     checkForApple();
     checkForTail();
@@ -300,22 +317,26 @@ function MoveDown() {
         loseGame();
         return;
     } else if (appleBelow === true) {
-        squares[snake + 20].classList.remove('red');
+        resetApple();
         eat();
-        tailMove();
-        downMove();
+        timeoutIntervalOne = setTimeout(tailMove, 25);
+        timeoutIntervalTwo = setTimeout(downMove, 50);
+        setTimeout(() => {
+            squares[snake + 20].classList.remove('red');
+        }, 49);
         failureNumber = 0;
-        // MoveDown();
+        timeoutIntervalThree = setTimeout(MoveDown, 75);
     } else {
-        tailMove();
-        downMove();
+        timeoutIntervalOne = setTimeout(tailMove, 25);
+        timeoutIntervalTwo = setTimeout(downMove, 50);
         failureNumber = 0;
-        // MoveDown();
+        timeoutIntervalThree = setTimeout(MoveDown, 75);
     }
 }
 
 // this function checks boundaries, apple proximity, and conducts movement to the left accordingly
 function MoveLeft() {
+    resetTimeouts();
     checkBoundary();
     checkForApple();
     checkForTail();
@@ -324,17 +345,20 @@ function MoveLeft() {
         loseGame();
         return;
     } else if (appleToTheLeft === true) {
-        squares[snake - 1].classList.remove('red');
+        resetApple();
         eat();
-        tailMove();
-        leftMove();
+        timeoutIntervalOne = setTimeout(tailMove, 25);
+        timeoutIntervalTwo = setTimeout(leftMove, 50);
+        setTimeout(() => {
+            squares[snake - 1].classList.remove('red');
+        }, 49);
         failureNumber = 0;
-        // MoveLeft();
+        timeoutIntervalThree = setTimeout(MoveLeft, 75);
     } else {
-        tailMove();
-        leftMove();
+        timeoutIntervalOne = setTimeout(tailMove, 25);
+        timeoutIntervalTwo = setTimeout(leftMove, 50);
         failureNumber = 0;
-        // MoveLeft();
+        timeoutIntervalThree = setTimeout(MoveLeft, 75);
     }
 }
 
@@ -346,20 +370,21 @@ function MoveLeft() {
 document.addEventListener("keydown", function (event) {
     // console.log(failureNumber);
     if (failureNumber !== 9 && event.key === 'ArrowUp' && snakeDirection !== "down" && snakeDirection !== "up") {
-        clearInterval(moveInterval)
-        moveInterval = setInterval(MoveUp, 100);
-    } else if (failureNumber !== 9 && event.key === 'ArrowRight' && snakeDirection !== "left")
-    // && snakeDirection !== "right") 
-    {
-        clearInterval(moveInterval)
-        moveInterval = setInterval(MoveRight, 100);
-        // MoveRight();
+        // clearInterval(moveInterval);
+        // moveInterval = setInterval(MoveUp, 85);
+        MoveUp();
+    } else if (failureNumber !== 9 && event.key === 'ArrowRight' && snakeDirection !== "left" && snakeDirection !== "right") {
+        // clearInterval(moveInterval)
+        // moveInterval = setInterval(MoveRight, 85);
+        MoveRight();
     } else if (failureNumber !== 9 && event.key === 'ArrowDown' && snakeDirection !== "up" && snakeDirection !== "down") {
-        clearInterval(moveInterval)
-        moveInterval = setInterval(MoveDown, 100);
+        // clearInterval(moveInterval);
+        // moveInterval = setInterval(MoveDown, 85);
+        MoveDown();
     } else if (failureNumber !== 9 && event.key === 'ArrowLeft' && snakeDirection !== "right" && snakeDirection !== "left" && snakeDirection !== "rightstart") {
-        clearInterval(moveInterval)
-        moveInterval = setInterval(MoveLeft, 100);
+        // clearInterval(moveInterval)
+        // moveInterval = setInterval(MoveLeft, 85);
+        MoveLeft();
     }
     checkForApple();
     checkForTail();
