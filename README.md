@@ -29,7 +29,7 @@ I want to be able to adjust the speed of the snake.
 #### 3. Technologies/description
 I built out this version of Snake entirely through JS DOM manipulation interacting with some static elements in my HTML and some style-code in my CSS. The snake itself is comprised of a head-number, and an array of numbers representing its tail. These numbers correspond to the indices of my grid of div squares. I have a single event listener to respond to the player/user pressing an arrow key, and moving the snake accordingly by adding and removing CSS classes to and from the div squares
 
-![First sketch of Snake](users/squawk/desktop/firstsketchofsnake.jpg)
+![First sketch of Snake](firstsketchofsnake.jpg)
 
 *Some notes on Snake's History*
 
