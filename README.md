@@ -30,3 +30,4 @@ I want to be able to adjust the speed of the snake.
 I built out this version of Snake entirely through JS DOM manipulation interacting with some static elements in my HTML and some style-code in my CSS. The snake itself is comprised of a head-number, and an array of numbers representing its tail. These numbers correspond to the indices of my grid of div squares. I have a single event listener to respond to the player/user pressing an arrow key, and moving the snake accordingly by adding and removing CSS classes to and from the div squares
 
 ### 4. Link to the game
+[Check it out!](https://guantanamobosch.github.io/SEI-Project1-Snake-Game/)
