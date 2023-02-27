@@ -19,7 +19,7 @@ let highestScore = 0;
 // a variable to store different numbers which represent different fail conditions (1-4 are the sides of the grid, 5-8 are the corners)
 let failureNumber = 0;
 
-// variables to store the setInterval() for movement so that clearInterval() can be used
+// variables to store the setInterval() for movements so that clearInterval() can be used
 let moveInterval;
 let timeoutIntervalOne;
 let timeoutIntervalTwo;
@@ -64,19 +64,21 @@ for (let i = 0; i < 381; i += 20) {
 // ***Functions***
 
 
+// this function is called when the snake enters a red square (eats an apple) and lengthens the snake by one square
 function eat() {
     tail.push(tail[tail.length - 1])
     currentScore++;
     yourScoreHTML.innerHTML = currentScore;
 }
 
-// This function clears the move interval, sets the failurenumber to 9 to prevent movement in the time between game over and game restart (due to the conditionals in the event listener code block, and displays a message in the window that says "ow!"), then sets a timeout for the reset function
+// This function clears the move interval, displays a message on the webpage that says "ow!", then sets a timeout for the reset function
 function loseGame() {
     clearInterval(moveInterval);
     yourScoreHTML.innerHTML = "OW!"
     document.getElementById('yourscorenumber').id = 'youlose';
     setTimeout(resetSnake, 1000);
 }
+
 // this function sets a new high score if you beat the current high score, and resets current score
 function logAndResetScore() {
     if (currentScore > highestScore) {
@@ -113,7 +115,7 @@ function resetSnake() {
     }
     // remove all array elements from the snake's tail except 2 at indices 0, 1
     tail.splice(2, (tail.length - 2));
-    // initial values for snake, tail, and apple
+    // initial values for snake, tail, apple, and direction
     snake = 205;
     tail[0] = 204;
     tail[1] = 203;
@@ -125,7 +127,7 @@ function resetSnake() {
     logAndResetScore();
 }
 
-// called each time the snake eats the apple, it moves the apple to a new location
+// called each time the snake eats the apple, it moves the apple to a new location - this function is recursive and prevents the apple from respawning in one of the squares inhabited by the snake
 function resetApple() {
     apple = Math.floor(Math.random() * 400);
     if (squares[apple].classList[1] === 'green') {
@@ -136,6 +138,7 @@ function resetApple() {
     }
 }
 
+// this function resets the timeouts that are set in each movement function so the player can change directions without the snake zigzagging into oblivion
 function resetTimeouts() {
     clearTimeout(timeoutIntervalOne);
     clearTimeout(timeoutIntervalTwo);
@@ -166,7 +169,7 @@ function checkBoundary() {
     }
 }
 
-// this function checks adjacent squares (above, below, to the left or right of) the snake's head for whether they are red and adjusts global boleans if they are
+// this function checks adjacent squares (above, below, to the left or right of) the snake's head for whether they are red and adjusts global boleans if they are, otherwise sets the booleans to false
 function checkForApple() {
     if (snake > 19 && squares[snake - 20].classList[1] === "red") {
         appleAbove = true;
@@ -188,7 +191,7 @@ function checkForApple() {
     }
 }
 
-// this function sets global booleans to false before it loops through indices of the tail array after the first two items (impossible for snake head to hit those anyway) and sets global booleans depending on whether the tail is adjacent to the snake's head or not
+// this function sets global booleans (re: tail proximity) to false before it loops through indices of the tail array after the first two items (impossible for snake head to hit the first two items in its tail) and sets global booleans depending on whether the tail is adjacent to the snake's head or not
 function checkForTail() {
     tailAbove = false;
     tailRight = false;
@@ -208,6 +211,7 @@ function checkForTail() {
     return;
 }
 
+// this function move the snake head up
 function upMove() {
     snake -= 20;
     squares[snake].classList.remove('red');
@@ -215,6 +219,7 @@ function upMove() {
     snakeDirection = "up";
 }
 
+// this function move the snake head right
 function rightMove() {
     snake += 1;
     squares[snake].classList.remove('red');
@@ -222,6 +227,7 @@ function rightMove() {
     snakeDirection = "right";
 }
 
+// this function move the snake head down
 function downMove() {
     snake += 20;
     squares[snake].classList.remove('red');
@@ -229,6 +235,7 @@ function downMove() {
     snakeDirection = "down";
 }
 
+// this function move the snake head left
 function leftMove() {
     snake -= 1;
     squares[snake].classList.remove('red');
@@ -256,7 +263,7 @@ function tailMove() {
     squares[tail[0]].classList.add('green');
 }
 
-// this function checks boundaries, apple proximity, and conducts movement upwards accordingly
+// this function resets timeouts, checks boundaries, apple and tail proximity, and conducts movement upwards accordingly
 function MoveUp() {
     resetTimeouts();
     checkBoundary();
@@ -281,7 +288,7 @@ function MoveUp() {
     }
 }
 
-// this function checks boundaries, apple proximity, and conducts movement to the right accordingly
+// this function resets timeouts, checks boundaries, apple and tail proximity, and conducts movement to the right accordingly
 function MoveRight() {
     resetTimeouts();
     checkBoundary();
@@ -306,7 +313,7 @@ function MoveRight() {
     }
 }
 
-// this function checks boundaries, apple proximity, and conducts movement downwards accordingly
+// this function resets timeouts, checks boundaries, apple and tail proximity, and conducts movement downwards accordingly
 function MoveDown() {
     resetTimeouts();
     checkBoundary();
@@ -331,7 +338,7 @@ function MoveDown() {
     }
 }
 
-// this function checks boundaries, apple proximity, and conducts movement to the left accordingly
+// this function resets timeouts, checks boundaries, apple and tail proximity, and conducts movement to the left accordingly
 function MoveLeft() {
     resetTimeouts();
     checkBoundary();
@@ -358,26 +365,17 @@ function MoveLeft() {
 
 
 
-// ***Event Listeners***
+// ***Event Listener***
 
-// this event listener only fires off if the keypress is an arrow key, only if the arrow key is not opposite to the snake's current direction, and only if the player did not have a game over within the last second
+// this event listener only fires off if the keypress is an arrow key, if the arrow key is not opposite or equal to the snake's current direction, and only if the player did not have a game over within the last second
 document.addEventListener("keydown", function (event) {
-    // console.log(failureNumber);
     if (failureNumber !== 9 && event.key === 'ArrowUp' && snakeDirection !== "down" && snakeDirection !== "up") {
-        // clearInterval(moveInterval);
-        // moveInterval = setInterval(MoveUp, 85);
         MoveUp();
     } else if (failureNumber !== 9 && event.key === 'ArrowRight' && snakeDirection !== "left" && snakeDirection !== "right") {
-        // clearInterval(moveInterval)
-        // moveInterval = setInterval(MoveRight, 85);
         MoveRight();
     } else if (failureNumber !== 9 && event.key === 'ArrowDown' && snakeDirection !== "up" && snakeDirection !== "down") {
-        // clearInterval(moveInterval);
-        // moveInterval = setInterval(MoveDown, 85);
         MoveDown();
     } else if (failureNumber !== 9 && event.key === 'ArrowLeft' && snakeDirection !== "right" && snakeDirection !== "left" && snakeDirection !== "rightstart") {
-        // clearInterval(moveInterval)
-        // moveInterval = setInterval(MoveLeft, 85);
         MoveLeft();
     }
     checkForApple();
