@@ -44,11 +44,11 @@ li {
 .row {
     display: flex;
     height: 3.2vh;
-    border: .5px solid black;
+    /* border: .5px solid black; */
 }
 
 .square {
-    border: .5px solid black;
+    /* border: .5px solid black; */
     width: 3.2vh;
     background-color: white;
 }
