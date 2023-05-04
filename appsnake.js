@@ -1,7 +1,7 @@
 // ***Variables***
 
 // let's store the squares in some variables
-const squares = document.querySelectorAll('.square');
+const squares = document.querySelectorAll(".square");
 
 // variables storing the array index for the squares which represent the snake and the apple
 let snake = 205;
@@ -9,8 +9,8 @@ let tail = [204, 203];
 let apple = 214;
 
 // pulling the HTML elements where the scores will be displayed into variables
-let yourScoreHTML = document.getElementById('yourscorenumber');
-let highScoreHTML = document.getElementById('highscorenumber');
+let yourScoreHTML = document.getElementById("yourscorenumber");
+let highScoreHTML = document.getElementById("highscorenumber");
 
 // score variables
 let currentScore = 0;
@@ -63,10 +63,9 @@ for (let i = 0; i < 381; i += 20) {
 
 // ***Functions***
 
-
 // this function is called when the snake enters a red square (eats an apple) and lengthens the snake by one square
 function eat() {
-    tail.push(tail[tail.length - 1])
+    tail.push(tail[tail.length - 1]);
     currentScore++;
     yourScoreHTML.innerHTML = currentScore;
 }
@@ -74,8 +73,8 @@ function eat() {
 // This function clears the move interval, displays a message on the webpage that says "ow!", then sets a timeout for the reset function
 function loseGame() {
     clearInterval(moveInterval);
-    yourScoreHTML.innerHTML = "OW!"
-    document.getElementById('yourscorenumber').id = 'youlose';
+    yourScoreHTML.innerHTML = "OW!";
+    document.getElementById("yourscorenumber").id = "youlose";
     setTimeout(resetSnake, 1000);
 }
 
@@ -87,20 +86,20 @@ function logAndResetScore() {
     highScoreHTML.innerHTML = highestScore;
     currentScore = 0;
     yourScoreHTML.innerHTML = currentScore;
-    document.getElementById('youlose').id = 'yourscorenumber'
+    document.getElementById("youlose").id = "yourscorenumber";
 }
 
 // apple always starts in the same place, squares[214] to start, makes it red
 function appleStartingPoint(apple) {
-    squares[apple].classList.add('red');
+    squares[apple].classList.add("red");
 }
 appleStartingPoint(apple);
 
 // makes the respective squares of the snake's head and tail green upon startup
 function snakeStartingPoint(snake) {
-    squares[snake].classList.add('green');
+    squares[snake].classList.add("green");
     for (let i = 0; i < tail.length; i++) {
-        squares[tail[i]].classList.add('green');
+        squares[tail[i]].classList.add("green");
     }
     failureNumber = 0;
 }
@@ -110,11 +109,11 @@ snakeStartingPoint(snake);
 function resetSnake() {
     // remove color from all squares on the grid
     for (let i = 0; i < squares.length; i++) {
-        squares[i].classList.remove('green')
-        squares[i].classList.remove('red')
+        squares[i].classList.remove("green");
+        squares[i].classList.remove("red");
     }
     // remove all array elements from the snake's tail except 2 at indices 0, 1
-    tail.splice(2, (tail.length - 2));
+    tail.splice(2, tail.length - 2);
     // initial values for snake, tail, apple, and direction
     snake = 205;
     tail[0] = 204;
@@ -130,10 +129,10 @@ function resetSnake() {
 // called each time the snake eats the apple, it moves the apple to a new location - this function is recursive and prevents the apple from respawning in one of the squares inhabited by the snake
 function resetApple() {
     apple = Math.floor(Math.random() * 400);
-    if (squares[apple].classList[1] === 'green') {
+    if (squares[apple].classList[1] === "green") {
         resetApple();
     } else {
-        squares[apple].classList.add('red');
+        squares[apple].classList.add("red");
         return;
     }
 }
@@ -198,14 +197,14 @@ function checkForTail() {
     tailBelow = false;
     tailLeft = false;
     for (let i = 2; i < tail.length; i++) {
-        if (snake > 19 && tail[i] === (snake - 20)) {
-            return tailAbove = true;
-        } else if (snake < 399 && tail[i] === (snake + 1)) {
-            return tailRight = true;
-        } else if (snake < 380 && tail[i] === (snake + 20)) {
-            return tailBelow = true;
-        } else if (snake > 0 && tail[i] === (snake - 1)) {
-            return tailLeft = true;
+        if (snake > 19 && tail[i] === snake - 20) {
+            return (tailAbove = true);
+        } else if (snake < 399 && tail[i] === snake + 1) {
+            return (tailRight = true);
+        } else if (snake < 380 && tail[i] === snake + 20) {
+            return (tailBelow = true);
+        } else if (snake > 0 && tail[i] === snake - 1) {
+            return (tailLeft = true);
         } else continue;
     }
     return;
@@ -214,53 +213,53 @@ function checkForTail() {
 // this function move the snake head up
 function upMove() {
     snake -= 20;
-    squares[snake].classList.remove('red');
-    squares[snake].classList.add('green');
+    squares[snake].classList.remove("red");
+    squares[snake].classList.add("green");
     snakeDirection = "up";
 }
 
 // this function move the snake head right
 function rightMove() {
     snake += 1;
-    squares[snake].classList.remove('red');
-    squares[snake].classList.add('green');
+    squares[snake].classList.remove("red");
+    squares[snake].classList.add("green");
     snakeDirection = "right";
 }
 
 // this function move the snake head down
 function downMove() {
     snake += 20;
-    squares[snake].classList.remove('red');
-    squares[snake].classList.add('green');
+    squares[snake].classList.remove("red");
+    squares[snake].classList.add("green");
     snakeDirection = "down";
 }
 
 // this function move the snake head left
 function leftMove() {
     snake -= 1;
-    squares[snake].classList.remove('red');
-    squares[snake].classList.add('green');
+    squares[snake].classList.remove("red");
+    squares[snake].classList.add("green");
     snakeDirection = "left";
 }
 
 // this function makes the tail follow the head and is called in each movement function
 function tailMove() {
-    squares[tail[0]].classList.remove('green');
+    squares[tail[0]].classList.remove("green");
     let tailLength = tail.length - 1;
     for (let i = tailLength; i > 0; i--) {
         if (i === tailLength) {
-            squares[tail[i]].classList.remove('green');
+            squares[tail[i]].classList.remove("green");
             tail[i] = tail[i - 1];
-            squares[tail[i]].classList.add('green');
+            squares[tail[i]].classList.add("green");
             continue;
         } else {
             tail[i] = tail[i - 1];
-            squares[tail[i]].classList.add('green');
+            squares[tail[i]].classList.add("green");
             continue;
         }
     }
     tail[0] = snake;
-    squares[tail[0]].classList.add('green');
+    squares[tail[0]].classList.add("green");
 }
 
 // this function resets timeouts, checks boundaries, apple and tail proximity, and conducts movement upwards accordingly
@@ -269,7 +268,12 @@ function MoveUp() {
     checkBoundary();
     checkForApple();
     checkForTail();
-    if (failureNumber === 1 || failureNumber === 5 || failureNumber === 6 || tailAbove === true) {
+    if (
+        failureNumber === 1 ||
+        failureNumber === 5 ||
+        failureNumber === 6 ||
+        tailAbove === true
+    ) {
         failureNumber = 9;
         loseGame();
         return;
@@ -294,7 +298,12 @@ function MoveRight() {
     checkBoundary();
     checkForApple();
     checkForTail();
-    if (failureNumber === 2 || failureNumber === 6 || failureNumber === 7 || tailRight === true) {
+    if (
+        failureNumber === 2 ||
+        failureNumber === 6 ||
+        failureNumber === 7 ||
+        tailRight === true
+    ) {
         failureNumber = 9;
         loseGame();
         return;
@@ -319,7 +328,12 @@ function MoveDown() {
     checkBoundary();
     checkForApple();
     checkForTail();
-    if (failureNumber === 3 || failureNumber === 7 || failureNumber === 8 || tailBelow === true) {
+    if (
+        failureNumber === 3 ||
+        failureNumber === 7 ||
+        failureNumber === 8 ||
+        tailBelow === true
+    ) {
         failureNumber = 9;
         loseGame();
         return;
@@ -344,7 +358,12 @@ function MoveLeft() {
     checkBoundary();
     checkForApple();
     checkForTail();
-    if (failureNumber === 4 || failureNumber === 5 || failureNumber === 8 || tailLeft === true) {
+    if (
+        failureNumber === 4 ||
+        failureNumber === 5 ||
+        failureNumber === 8 ||
+        tailLeft === true
+    ) {
         failureNumber = 9;
         loseGame();
         return;
@@ -363,23 +382,40 @@ function MoveLeft() {
     }
 }
 
-
-
 // ***Event Listener***
 
 // this event listener only fires off if the keypress is an arrow key, if the arrow key is not opposite or equal to the snake's current direction, and only if the player did not have a game over within the last second
 document.addEventListener("keydown", function (event) {
-    if (failureNumber !== 9 && event.key === 'ArrowUp' && snakeDirection !== "down" && snakeDirection !== "up") {
+    if (
+        failureNumber !== 9 &&
+        event.key === "ArrowUp" &&
+        snakeDirection !== "down" &&
+        snakeDirection !== "up"
+    ) {
         MoveUp();
-    } else if (failureNumber !== 9 && event.key === 'ArrowRight' && snakeDirection !== "left" && snakeDirection !== "right") {
+    } else if (
+        failureNumber !== 9 &&
+        event.key === "ArrowRight" &&
+        snakeDirection !== "left" &&
+        snakeDirection !== "right"
+    ) {
         MoveRight();
-    } else if (failureNumber !== 9 && event.key === 'ArrowDown' && snakeDirection !== "up" && snakeDirection !== "down") {
+    } else if (
+        failureNumber !== 9 &&
+        event.key === "ArrowDown" &&
+        snakeDirection !== "up" &&
+        snakeDirection !== "down"
+    ) {
         MoveDown();
-    } else if (failureNumber !== 9 && event.key === 'ArrowLeft' && snakeDirection !== "right" && snakeDirection !== "left" && snakeDirection !== "rightstart") {
+    } else if (
+        failureNumber !== 9 &&
+        event.key === "ArrowLeft" &&
+        snakeDirection !== "right" &&
+        snakeDirection !== "left" &&
+        snakeDirection !== "rightstart"
+    ) {
         MoveLeft();
     }
     checkForApple();
     checkForTail();
-})
-
-// this method of 'keydown' did work, and I got it directly from https://css-tricks.com/snippets/javascript/javascript-keycodes/ --- yeehaw
+});
