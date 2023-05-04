@@ -1,10 +1,14 @@
+:root {
+    --redwood: #A54657;
+    --wine: #582630;
+    --bittersweet: #F26157;
+    --sandy: #f1a66a;
+    --maize: #F7EE7F;
+    --snake-green: #094621;
+}
+
 body {
-    background-color: #F5CF9C;
-    background-image: url("https://i.imgur.com/Uddccre.png");
-    background-size: 1175px;
-    background-position-x: center;
-    background-position-y: 15%;
-    background-repeat: no-repeat;
+    background-color: var(--sandy);
     height: 475px;
     width: 975px;
 }
@@ -21,15 +25,15 @@ main {
 }
 
 li {
-    color: #8a5402;
-    text-shadow: 3px 3px blanchedalmond;
+    color: var(--wine);
+    text-shadow: 1px 2px blanchedalmond;
     font-size: x-large;
-    font-family: 'Tilt Warp';
+    font-family: 'Tilt Warp', cursive;
 }
 
 .text {
-    color: #1e3393;
-    font-family: 'Tilt Warp';
+    color: var(--snake-green);
+    font-family: 'Tilt Warp', cursive;
     text-shadow: 2px 2px blanchedalmond;
 }
 
@@ -44,18 +48,16 @@ li {
 .row {
     display: flex;
     height: 3.2vh;
-    /* border: .5px solid black; */
 }
 
 .square {
-    /* border: .5px solid black; */
     width: 3.2vh;
     background-color: white;
 }
 
 
 .green {
-    background-color: green;
+    background-color: var(--snake-green);
 }
 
 .red {
